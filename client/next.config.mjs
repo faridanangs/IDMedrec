@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    env: {
+        PinataApiKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiIwNjE2ZWE3OC1lYWFkLTQxYTAtYTExOC02MDc2NzFmZTZmNzgiLCJlbWFpbCI6ImY0cjFkYW5hbmdzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJjMTIwMjYyZTcyODg3MzFlYzEwYiIsInNjb3BlZEtleVNlY3JldCI6IjRjYzYyNDUzZmYxMzAxZWI1M2MxNTEyYjRhOTI2MTg5MWI5NTYwZWRhNGE1MTQ3YWYzMGYxY2RkOTkyYzc3ZTUiLCJpYXQiOjE3MTQxOTUzODB9",
+        ContractAddress: "0x26f291833976836A52C8F2153a716e3dF67D24f1",
+        WalletAddress: "0xE9111a95711dcc94150009318fc27749a30324Ad"
+    }
+};
 
 export default nextConfig;

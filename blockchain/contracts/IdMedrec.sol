@@ -10,7 +10,7 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
     address internal owner;
 
     constructor() ERC20("IDMedRec", "IMR") {
-        _mint(msg.sender, 20000000 * 10**18);
+        _mint(msg.sender, 20000000 * 10 ** 18);
         owner = msg.sender;
     }
 
@@ -145,11 +145,10 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
     @dev This function is used to get all medical record patient
     - Arguments: address, uint256
     */
-    function getMedicalRecords(address _patient, uint256 _patientId)
-        public
-        view
-        returns (MedicalRecord[] memory)
-    {
+    function getMedicalRecords(
+        address _patient,
+        uint256 _patientId
+    ) public view returns (MedicalRecord[] memory) {
         return patientRecords[_patient][_patientId];
     }
 
@@ -157,11 +156,10 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
     @dev This function is used to get doctor account
     - Arguments: address, uint256
     */
-    function getDoctor(address _doctorAddress, uint256 _doctorId)
-        public
-        view
-        returns (DoctorStruct memory)
-    {
+    function getDoctor(
+        address _doctorAddress,
+        uint256 _doctorId
+    ) public view returns (DoctorStruct memory) {
         return doctor[_doctorAddress][_doctorId];
     }
 
@@ -169,11 +167,10 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
     @dev This function is used to get patient account
     - Arguments: address, uint256
     */
-    function getPatient(address _patientAddress, uint256 _patientId)
-        public
-        view
-        returns (PatientStruct memory)
-    {
+    function getPatient(
+        address _patientAddress,
+        uint256 _patientId
+    ) public view returns (PatientStruct memory) {
         return patient[_patientAddress][_patientId];
     }
 

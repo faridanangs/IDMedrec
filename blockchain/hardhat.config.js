@@ -4,7 +4,7 @@ const PRIVATE_KEY = "983833d689e1a9481c585d846a50676cea2825bbbdcd5c0e2f624a13d54
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  defaultNetwork: "ganache",
+  defaultNetwork: "hardhat",
   networks: {
     polygon_amoy: {
       url: "https://polygon-amoy-bor-rpc.publicnode.com",
