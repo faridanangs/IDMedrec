@@ -15,6 +15,10 @@ IDMedrec is a web-based medical record application designed to facilitate effici
 - **Polygon Blockchain**: A Layer 2 solution on Ethereum providing fast transactions and low costs.
 - **IPFS (InterPlanetary File System)**: A decentralized storage protocol for secure and distributed data storage.
 
+## User Interface Design
+We design the user interface in figma.
+[Figma Design](https://www.figma.com/design/icmy7OWbYAyzdZFJkkVVVF/IDMedrec---Sistem-Rekam-Medis?node-id=0-1&t=ooN3r98ZSduCmzCX-1)
+
 ## Project Goals
 
 IDMedrec aims to provide a secure, efficient, and easily accessible digital medical record solution for healthcare providers and patients. By leveraging blockchain technology and decentralized storage, this application offers a high level of data security and privacy.
