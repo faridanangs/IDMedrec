@@ -5,8 +5,40 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useEffect, useState } from "react";
+import { getPatient } from "@/contex/contract";
+import { toast } from "react-toastify";
+import { formatEthErrorMsg } from "@/contex/errorHandler";
+import { ethers } from "ethers";
+import axios from "axios";
 
 export default function SideRightLogin() {
+
+  console.log(process.env.WalletAddress,"wllt")
+
+  const [address, setAddress] = useState();
+  const [id, setId] = useState();
+  // 710586553653989
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const bigId = ethers.toBigInt(id);
+    const response = await getPatient(address, bigId);
+    
+    console.log(response.uri, "ress");
+    if (response.id === 0) {
+      toast.error("User not found");
+    } else {
+      const ipfsResponse = await fetch(response.uri);
+
+      if (!ipfsResponse.ok){
+        toast.error(ipfsResponse.statusText);
+      }
+
+      const data = await ipfsResponse.json()
+      console.log(data, "ipfs");
+    }
+  };
 
   return (
     <aside
@@ -18,7 +50,7 @@ export default function SideRightLogin() {
       <Button variant="secondary" className="block ml-auto w-max" asChild>
         <Link href="/auth/register">Register</Link>
       </Button>
-      <form className="mt-32">
+      <form className="mt-32" onSubmit={handleSubmit}>
         <p
           className={cn(
             "text-center text-2xl text-[#0F172A] font-semibold",
@@ -33,29 +65,28 @@ export default function SideRightLogin() {
         <div className={cn("w-full mb-4", "grid items-center gap-1.5")}>
           <Label htmlFor="wallet_address">Wallet Address</Label>
           <Input
+            required
             type="text"
             id="wallet_address"
             placeholder="type your wallet address here"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         <div className={cn("w-full", "grid items-center gap-1.5")}>
           <Label htmlFor="id">ID</Label>
-          <Input type="number" id="id" placeholder="type your id here" />
+          <Input
+            required
+            type="number"
+            id="id"
+            placeholder="type your id here"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+          />
         </div>
-        <div className={cn("w-full mt-4", "grid items-center gap-1.5")}>
-          <Label>User Roles</Label>
-          <RadioGroup defaultValue="male" className="flex mt-1">
-            <div className={cn("flex items-center", "space-x-2 mr-2")}>
-              <RadioGroupItem value="male" id="male" />
-              <Label htmlFor="male">Patient</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="female" id="female" />
-              <Label htmlFor="female">Doctor</Label>
-            </div>
-          </RadioGroup>
-        </div>
-        <Button className="mt-10 w-full">Login</Button>
+        <Button className="mt-10 w-full" type="submit">
+          Login
+        </Button>
       </form>
     </aside>
   );

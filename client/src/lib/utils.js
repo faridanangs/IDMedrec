@@ -11,8 +11,8 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
 
-export const createRegisterPdf = async (firstName, lastName, username, email, dateOfBirdth, id, wallet, createdAt, patientUri) => {
-  const qrCodeData = await QRCode.toDataURL("helloworld");
+export const createRegisterPdf = async (data, wallet, ipfsUri) => {
+  const qrCodeData = await QRCode.toDataURL(ipfsUri);
 
   // Create PDF document
   const doc = new jsPDF({
@@ -47,17 +47,18 @@ export const createRegisterPdf = async (firstName, lastName, username, email, da
   const lineHeight = 20;
 
   doc.setTextColor("#000"); // Set text color to black for visibility
-  doc.text(`Full Name: ${firstName} ${lastName}`, leftMargin, topMargin);
-  doc.text(`Username: ${username}`, leftMargin, topMargin + lineHeight);
-  doc.text(`ID: ${id}`, leftMargin, topMargin + 2 * lineHeight);
-  doc.text(`Email: ${email}`, leftMargin, topMargin + 3 * lineHeight);
-  doc.text(`Date of Birth: ${dateOfBirdth}`, leftMargin, topMargin + 4 * lineHeight);
-  doc.text(`Public Address: ${wallet.address}`, leftMargin, topMargin + 5 * lineHeight);
-  doc.text(`Created At: ${createdAt}`, leftMargin, topMargin + 6 * lineHeight);
+  doc.text(`Full Name: ${data.name}`, leftMargin, topMargin);
+  doc.text(`Username: ${data.username}`, leftMargin, topMargin + lineHeight);
+  doc.text(`ID: ${data.id}`, leftMargin, topMargin + 2 * lineHeight);
+  doc.text(`Email: ${data.email}`, leftMargin, topMargin + 3 * lineHeight);
+  doc.text(`Public Address: ${wallet.address}`, leftMargin, topMargin + 4 * lineHeight);
+  doc.text(`Public Address: ${wallet.user_role}`, leftMargin, topMargin + 5 * lineHeight);
+  doc.text(`Created At: ${data.created_at}`, leftMargin, topMargin + 6 * lineHeight);
+  data.specialty && doc.text(`Specialty: ${data.specialty}`, leftMargin, topMargin + 7 * lineHeight);
 
   // Handle long private address
   const privateAddressText = doc.splitTextToSize(`Private Address: ${wallet.privateKey}`, 515);
-  doc.text(privateAddressText, leftMargin, topMargin + 7 * lineHeight);
+  doc.text(privateAddressText, leftMargin, topMargin + 8 * lineHeight);
 
   // Add warning text at the bottom in red
   const warningText = '* Please keep this document safe and confidential.';
@@ -68,5 +69,5 @@ export const createRegisterPdf = async (firstName, lastName, username, email, da
   doc.text(warningText, textX, textY);
 
   // Output the PDF to a data URL
-  return doc.output("dataurlstring");
+  doc.output("dataurlnewwindow");
 }

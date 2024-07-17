@@ -12,7 +12,7 @@ const connectors = connectorsForWallets(
   [
     {
       groupName: "Recomended",
-      wallets: [rainbowWallet, bitgetWallet, metaMaskWallet]
+      wallets: [metaMaskWallet]
     }
   ], {
   appName: "IDMEDREC",

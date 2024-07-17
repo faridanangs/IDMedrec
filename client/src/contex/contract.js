@@ -1,72 +1,55 @@
 import { ethers } from "ethers";
 import { createRegisterPdf } from "@/lib/utils";
 import { abi } from "./context";
+import { formatEthErrorMsg } from "./errorHandler";
+import { toast } from "react-toastify";
 
-export const addPatient = async (firstName, lastName, username, email, dateOfBirth) => {
+export const addPatient = async (patientAddress, patientUri, patientId) => {
     try {
-        // Create a wallet account for the user
-        const wallet = ethers.Wallet.createRandom();
-        const walletAddress = wallet.address;
-
-        // Create a random Id for the user
-        const id = Number(Math.random().toString().split(".")[1]);
-
-        // Create a date for account creation
-        const createdAt = new Date().toLocaleString([], { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
-
-        // Change dateOfBirth to formatted date, month, year
-        let dob = new Date(dateOfBirth);
-        const formattedDateOfBirth = `${dob.getDate()} ${dob.toLocaleString('default', { month: 'short' })} ${dob.getFullYear()}`;
-
-        const patientData = {
-            firstName: firstName,
-            lastName: lastName,
-            username: username,
-            email: email,
-            dateOfBirth: formattedDateOfBirth,
-            walletAddress: walletAddress,
-            id: id,
-            createdAt: createdAt
-        };
-
-        // Simpan data ke IPFS dan dapatkan URI-nya
-        // const pinataResponse = await axios.post(
-        //   "https://api.pinata.cloud/pinning/pinJSONToIPFS",
-        //   patientData,
-        //   {
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //       Authorization: `Bearer ${process.env.PinataApiKey}`,
-        //     },
-        //   }
-        // );
-
-        const ipfsUri = "https://api.pinata.cloud/1213"; // ganti dengan URI yang benar setelah menyimpan ke IPFS
-
-
 
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
 
-        const tx = await contract.addPatient(walletAddress, ipfsUri, id);
-        console.log(tx, "before");
+        const tx = await contract.addPatient(patientAddress, patientUri, patientId);
         await tx.wait();
-        console.log(tx, "after");
-
-        const pdfUrl = await createRegisterPdf(
-            firstName,
-            lastName,
-            username,
-            email,
-            formattedDateOfBirth,
-            id,
-            wallet,
-            createdAt,
-            patientData
-        );
-        console.log(pdfUrl);
+        toast.success("creating account successfully")
+        return true;
     } catch (error) {
-        console.error("Error in addPatient:", error);
+        return toast.error(formatEthErrorMsg(error));
     }
 };
+
+export const addDoctor = async (doctorAddress, doctorUri, doctorId) => {
+    try {
+
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
+
+        const tx = await contract.addDoctor(doctorAddress, doctorUri, doctorId);
+        await tx.wait();
+        toast.success("creating account successfully")
+        return true;
+    } catch (error) {
+        return toast.error(formatEthErrorMsg(error));
+    }
+};
+
+export const getPatient = async (patientAddress, patientId) => {
+    try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
+
+        const response = await contract.getPatient(patientAddress, patientId);
+        return {
+            address: response[0],
+            uri: response[1],
+            id: Number(response[2])
+        }
+    } catch (error) {
+        toast.error(formatEthErrorMsg(error));
+        return;
+    }
+}
