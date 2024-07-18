@@ -52,7 +52,7 @@ export const createRegisterPdf = async (data, wallet, ipfsUri) => {
   doc.text(`ID: ${data.id}`, leftMargin, topMargin + 2 * lineHeight);
   doc.text(`Email: ${data.email}`, leftMargin, topMargin + 3 * lineHeight);
   doc.text(`Public Address: ${wallet.address}`, leftMargin, topMargin + 4 * lineHeight);
-  doc.text(`Public Address: ${wallet.user_role}`, leftMargin, topMargin + 5 * lineHeight);
+  doc.text(`User Role: ${data.user_role}`, leftMargin, topMargin + 5 * lineHeight);
   doc.text(`Created At: ${data.created_at}`, leftMargin, topMargin + 6 * lineHeight);
   data.specialty && doc.text(`Specialty: ${data.specialty}`, leftMargin, topMargin + 7 * lineHeight);
 

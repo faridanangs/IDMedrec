@@ -15,25 +15,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
 import { useEffect, useRef, useState } from "react";
 import { addDoctorAction } from "@/contex/action";
-import { toast } from "react-toastify";
-import { formatEthErrorMsg } from "@/contex/errorHandler";
-import { useAccount, useBalance, useWriteContract } from "wagmi";
-import { abi } from "@/contex/context";
-import { ethers } from "ethers";
+import { useAccount } from "wagmi";
 
 export default function AddDoctorBtnModal() {
   const formRef = useRef(null);
-  const {
-    writeContractAsync,
-    error: writeError,
-    isPending,
-  } = useWriteContract();
-
-  useEffect(() => {
-    if (writeError?.message.includes("Only owner can add a doctor")) {
-      toast.error(" Only owner can add a doctor");
-    }
-  }, [writeError]);
+  const [isPending, setIsPending] = useState(false);
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -47,11 +33,9 @@ export default function AddDoctorBtnModal() {
     // Reset form fields if needed
     formRef.current.reset();
 
-    try {
-      await addDoctorAction(data, writeContractAsync);
-    } catch (error) {
-      return toast.error(formatEthErrorMsg(error));
-    }
+    setIsPending(true);
+    await addDoctorAction(data);
+    setIsPending(false);
   };
 
   return (

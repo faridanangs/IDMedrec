@@ -1,12 +1,10 @@
 import { createRegisterPdf } from "@/lib/utils";
 import axios from "axios";
 import { ethers } from "ethers";
-import { addDoctor, addPatient } from "./contract";
+import { addDoctor, addPatient, createMedicalRecord } from "./contract";
 import { formatEthErrorMsg } from "./errorHandler";
-import { toast } from "react-toastify";
-import { abi } from "./context";
 
-export const addPatientAction = async (firstName, lastName, username, email, dateOfBirth) => {
+export const addPatientAction = async (data, router) => {
     try {
         // Create a wallet account for the patient
         const wallet = ethers.Wallet.createRandom();
@@ -18,12 +16,13 @@ export const addPatientAction = async (firstName, lastName, username, email, dat
         // Create a date for account creation
         const createdAt = new Date().toLocaleString([], { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
 
-        const name = firstName + " " + lastName
+        const name = data.first_name + " " + data.last_name
+
 
         const patientData = {
             name: name,
-            username: username,
-            email: email,
+            username: data.username,
+            email: data.email,
             wallet_address: walletAddress,
             user_role: "patient",
             id: id,
@@ -31,38 +30,39 @@ export const addPatientAction = async (firstName, lastName, username, email, dat
         };
 
 
-        // save patient data to ipfs
-        const pinataResponse = await axios.post(
-            process.env.PinataPinJson,
-            patientData,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${process.env.PinataApiKey}`,
-                },
-            }
-        );
+        // // save patient data to ipfs
+        // const pinataResponse = await axios.post(
+        //     process.env.PinataPinJson,
+        //     patientData,
+        //     {
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             Authorization: `Bearer ${process.env.PinataApiKey}`,
+        //         },
+        //     }
+        // );
 
-        const ipfsUri = `${process.env.PinataIpfsUrl}/${pinataResponse.data.IpfsHash}`
+        // const ipfsUri = `${process.env.PinataIpfsUrl}/${pinataResponse.data.IpfsHash}`
+        const ipfsUri = `${process.env.PinataIpfsUrl}/vghvgh1vc2fg3c1tf23c1fc21c2f1c2fd`
 
         const patientId = ethers.toBigInt(id)
-        const isSuccess = await addPatient(walletAddress, ipfsUri, patientId)
 
-        if (isSuccess) {
-            await createRegisterPdf(
-                patientData,
-                wallet,
-                ipfsUri
-            );
-        }
+        await addPatient(walletAddress, ipfsUri, patientId);
 
+        await createRegisterPdf(
+            patientData,
+            wallet,
+            ipfsUri
+        )
+
+        router.push("/auth/login");
     } catch (error) {
-        toast.error(formatEthErrorMsg(error))
+        formatEthErrorMsg(error);
         return;
     }
 };
 
-export const addDoctorAction = async (dataDoctor, writeContractAsync) => {
+export const addDoctorAction = async (dataDoctor) => {
     try {
         // Create a wallet account for the doctor
         const wallet = ethers.Wallet.createRandom();
@@ -70,6 +70,7 @@ export const addDoctorAction = async (dataDoctor, writeContractAsync) => {
 
         // Create a random Id for the docotr
         const id = Number(Math.random().toString().split(".")[1]);
+        const doctorId = ethers.toBigInt(id)
 
         // Create a date for account creation
         const createdAt = new Date().toLocaleString([], { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
@@ -81,42 +82,65 @@ export const addDoctorAction = async (dataDoctor, writeContractAsync) => {
         dataDoctor.user_role = "doctor";
 
         // save docotr data to ipfs
-        const pinataResponse = await axios.post(
-            process.env.PinataPinJson,
-            dataDoctor,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${process.env.PinataApiKey}`,
-                },
-            }
-        );
+        // const pinataResponse = await axios.post(
+        //     process.env.PinataPinJson,
+        //     dataDoctor,
+        //     {
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             Authorization: `Bearer ${process.env.PinataApiKey}`,
+        //         },
+        //     }
+        // );
 
-        const ipfsUri = `${process.env.PinataIpfsUrl}/${pinataResponse.data.IpfsHash}`
-        // const ipfsUri = `${process.env.PinataIpfsUrl}/vghvgh1vc2fg3c1tf23c1fc21c2f1c2fd`
+        // const ipfsUri = `${process.env.PinataIpfsUrl}/${pinataResponse.data.IpfsHash}`
+        const ipfsUri = `${process.env.PinataIpfsUrl}/vghvgh1vc2fg3c1tf23c1fc21c2f1c2fd`
 
-        const doctorId = ethers.toBigInt(id)
-        console.log(ipfsUri, "ipfs")
 
-        await writeContractAsync({
-            address: process.env.ContractAddress,
-            abi: abi,
-            functionName: "addDoctor",
-            args: [walletAddress, ipfsUri, doctorId],
-        });
+        await addDoctor(walletAddress, ipfsUri, doctorId);
 
         await createRegisterPdf(
             dataDoctor,
             wallet,
             ipfsUri
         );
-
     } catch (error) {
-        return toast.error(formatEthErrorMsg(error));
+        formatEthErrorMsg(error);
+        return;
     }
 }
 
 
-export const addMedicalRecord = async (dataPatient, patientAddress, patientId) => {
+export const addMedicalRecordAction = async (dataPatient, patientAddress, id, doctorAddress) => {
+    try {
+        // Create a date for account creation
+        const createdAt = new Date().toLocaleString([], { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
 
+        // add some data in doctor
+        dataPatient.created_at = createdAt;
+
+        // save docotr data to ipfs
+        // const pinataResponse = await axios.post(
+        //     process.env.PinataPinJson,
+        //     dataPatient,
+        //     {
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             Authorization: `Bearer ${process.env.PinataApiKey}`,
+        //         },
+        //     }
+        // );
+
+        // const ipfsUri = `${process.env.PinataIpfsUrl}/${pinataResponse.data.IpfsHash}`
+        const ipfsUri = `${process.env.PinataIpfsUrl}/vghvgh1vc2fg3c1tf23c1fc21c2f1c2fd`
+
+        const patientId = ethers.toBigInt(id);
+        const doctorId = ethers.toBigInt(684364540120924);
+
+        await createMedicalRecord(patientAddress, ipfsUri, patientId, doctorAddress, doctorId);
+
+    } catch (error) {
+        formatEthErrorMsg(error);
+        return;
+    }
 }

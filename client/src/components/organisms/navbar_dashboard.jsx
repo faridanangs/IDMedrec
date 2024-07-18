@@ -1,10 +1,15 @@
-"use client"
-import Image from "next/image"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ConnectButton } from "./connect_button";
 
 export default function NavbarDashboard() {
   const pathname = usePathname();
@@ -59,16 +64,17 @@ export default function NavbarDashboard() {
           </li>
         </ul>
       </aside>
-      <Button variant="destructive" className="hidden sm:block">
-        Logout
-      </Button>
+      <div className="gap-8 items-center hidden sm:flex">
+        <ConnectButton />
+        <Button variant="destructive">Logout</Button>
+      </div>
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="outline" className="sm:hidden w-max h-max">
             <Image src="/icons/menu.svg" alt="menu" width={24} height={24} />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-72">
+        <PopoverContent className="w-72 sm:hidden">
           <ul className="text-sm">
             <li className="mb-3">
               <Link href="/dashboard">Admin</Link>
@@ -80,13 +86,14 @@ export default function NavbarDashboard() {
               <Link href="/dashboard/patient">Patient</Link>
             </li>
             <li>
-              <Button variant="destructive" className="w-full">
-                Logout
-              </Button>
+              <div className=" sm:hidden mt-8">
+                <ConnectButton />
+                <Button variant="destructive" className="w-full mt-1">Logout</Button>
+              </div>
             </li>
           </ul>
         </PopoverContent>
       </Popover>
     </nav>
-  )
+  );
 }

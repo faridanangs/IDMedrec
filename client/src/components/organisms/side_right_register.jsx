@@ -1,50 +1,44 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { addPatientAction } from "@/contex/action";
-import { formatEthErrorMsg } from "@/contex/errorHandler";
-import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useAccount } from "wagmi";
+import { ConnectButton } from "./connect_button";
+import { formatEthErrorMsg } from "@/contex/errorHandler";
 
 export default function SideRightRegister() {
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [email, setEmail] = useState();
-  const [username, setUsername] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-
+  const formRef = useRef(null);
   const router = useRouter();
+  const [isPending, setisPending] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setIsLoading(true);
-      await addPatientAction(firstName, lastName, username, email, date);
 
-      setIsLoading(false);
-      router.push("/auth/login");
+    const formData = new FormData(formRef.current);
+    const data = {};
+
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+
+    try {
+      setisPending(true);
+      await addPatientAction(data, router);
+      setisPending(false);
     } catch (error) {
-      setIsLoading(false);
-      return toast.error(formatEthErrorMsg(error));
+      formatEthErrorMsg(error);
     }
   };
 
   return (
     <>
-      {isLoading && (
+      {isPending && (
         <div className="fixed  w-full min-h-screen z-40">
           <div className="absolute z-40 right-0 top-0 bottom-0 left-0 backdrop-blur-sm lg:backdrop-blur-md" />
           <div className="w-full h-full z-50 absolute flex items-center justify-center">
@@ -79,11 +73,18 @@ export default function SideRightRegister() {
         )}
       >
         <div className="flex justify-end gap-4">
-          <Button variant="secondary" className="block w-max" asChild>
-            <Link href="/auth/login">Login</Link>
-          </Button>
+          <div className="gap-8 items-center hidden sm:flex">
+            <ConnectButton />
+            <Button
+              variant="secondary"
+              className="block w-20 text-center"
+              asChild
+            >
+              <Link href="/auth/login">Login</Link>
+            </Button>
+          </div>
         </div>
-        <form className="mt-32" onSubmit={onSubmit}>
+        <form className="mt-32" onSubmit={onSubmit} ref={formRef}>
           <p
             className={cn(
               "text-center text-2xl text-[#0F172A] font-semibold",
@@ -104,46 +105,42 @@ export default function SideRightRegister() {
             >
               <Label htmlFor="first_name">First Name</Label>
               <Input
+                name="first_name"
                 required
                 type="text"
                 id="first_name"
                 placeholder="type your first name here"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className={cn("w-full", "items-center grid gap-1.5")}>
               <Label htmlFor="last_name">Last Name</Label>
               <Input
+                name="last_name"
                 required
                 type="text"
                 id="last_name"
                 placeholder="type your last name here"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
           </div>
           <div className={cn("w-full mb-4", "grid items-center gap-1.5")}>
-            <Label htmlFor="email">Username</Label>
+            <Label htmlFor="username">Username</Label>
             <Input
+              name="username"
               required
               type="text"
               id="username"
               placeholder="type your username here"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className={cn("w-full mb-4", "grid items-center gap-1.5")}>
             <Label htmlFor="email">Email</Label>
             <Input
+              name="email"
               required
               type="email"
               id="email"
               placeholder="type your email here"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <Button className="mt-10 w-full" type="submit">

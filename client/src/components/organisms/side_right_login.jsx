@@ -5,39 +5,29 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getPatient } from "@/contex/contract";
-import { toast } from "react-toastify";
-import { formatEthErrorMsg } from "@/contex/errorHandler";
 import { ethers } from "ethers";
-import axios from "axios";
+import { toast } from "react-toastify";
+import { ConnectButton } from "./connect_button";
 
 export default function SideRightLogin() {
+  const formRef = useRef();
 
-  console.log(process.env.WalletAddress,"wllt")
-
-  const [address, setAddress] = useState();
-  const [id, setId] = useState();
-  // 710586553653989
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const formData = new FormData(formRef.current);
+    const walletAddress = formData.get("wallet_address");
+    const id = formData.get("id");
     const bigId = ethers.toBigInt(id);
-    const response = await getPatient(address, bigId);
-    
-    console.log(response.uri, "ress");
-    if (response.id === 0) {
-      toast.error("User not found");
-    } else {
-      const ipfsResponse = await fetch(response.uri);
 
-      if (!ipfsResponse.ok){
-        toast.error(ipfsResponse.statusText);
-      }
+    const response = await getPatient(walletAddress, bigId);
 
-      const data = await ipfsResponse.json()
-      console.log(data, "ipfs");
+    if (response?.id === 0) {
+      toast.info("User not found");
     }
+
+    console.log(response, "response");
   };
 
   return (
@@ -47,10 +37,14 @@ export default function SideRightLogin() {
         "px-8 sm:px-20 lg:px-10 xl:px-28 py-10"
       )}
     >
-      <Button variant="secondary" className="block ml-auto w-max" asChild>
-        <Link href="/auth/register">Register</Link>
-      </Button>
-      <form className="mt-32" onSubmit={handleSubmit}>
+      <div className="items-center flex justify-end gap-12">
+        <ConnectButton />
+        <Button variant="secondary" className="block w-20 text-center" asChild>
+          <Link href="/auth/register">Register</Link>
+        </Button>
+      </div>
+
+      <form className="mt-32" onSubmit={handleSubmit} ref={formRef}>
         <p
           className={cn(
             "text-center text-2xl text-[#0F172A] font-semibold",
@@ -69,8 +63,7 @@ export default function SideRightLogin() {
             type="text"
             id="wallet_address"
             placeholder="type your wallet address here"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            name="wallet_address"
           />
         </div>
         <div className={cn("w-full", "grid items-center gap-1.5")}>
@@ -80,8 +73,7 @@ export default function SideRightLogin() {
             type="number"
             id="id"
             placeholder="type your id here"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            name="id"
           />
         </div>
         <Button className="mt-10 w-full" type="submit">
