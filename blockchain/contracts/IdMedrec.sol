@@ -62,11 +62,11 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
     ) public nonReentrant {
         require(
             doctor[_doctorAddress][_doctorId].doctor != address(0),
-            "Error: only doctor can add a medical record"
+            "Error: Only doctor can add a medical record"
         );
         require(
             patient[_patient][_patientId].patient != address(0),
-            "Error: patient is not there"
+            "Error: Patient is not there"
         );
 
         counterId.increment(1);
@@ -94,10 +94,10 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         string memory _doctorUri,
         uint256 _doctorId
     ) public {
-        require(msg.sender == owner, "Error: only owner can add a doctor");
+        require(msg.sender == owner, "Error: Only owner can add a doctor");
         require(
             doctor[_doctorAddress][_doctorId].id == 0,
-            "Error: doctor already exist"
+            "Error: Doctor already exist"
         );
 
         counterId.increment(2);
@@ -122,7 +122,7 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
     ) public {
         require(
             patient[_patientAddress][_patientId].id == 0,
-            "Error: patient already exists"
+            "Error: Patient already exists"
         );
 
         counterId.increment(3);
@@ -144,6 +144,7 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _patient,
         uint256 _patientId
     ) public view returns (MedicalRecord[] memory) {
+        require(doctor[_patient][_patientId].id != 0, "Error: Medical record not found");
         return patientRecords[_patient][_patientId];
     }
 
@@ -155,6 +156,10 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _doctorAddress,
         uint256 _doctorId
     ) public view returns (DoctorStruct memory) {
+        require(
+            doctor[_doctorAddress][_doctorId].id != 0,
+            "Error: Doctor not found"
+        );
         return doctor[_doctorAddress][_doctorId];
     }
 
@@ -166,6 +171,10 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _patientAddress,
         uint256 _patientId
     ) public view returns (PatientStruct memory) {
+        require(
+            patient[_patientAddress][_patientId].id != 0,
+            "Error: Patient not found"
+        );
         return patient[_patientAddress][_patientId];
     }
 
