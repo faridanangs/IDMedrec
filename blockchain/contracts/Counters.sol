@@ -3,15 +3,15 @@ pragma solidity ^0.8.19;
 
 library Counters {
     struct Counter {
-        uint32 _valueRecord;
-        uint32 _valuePatient;
-        uint32 _valueDoctor;
+        uint256 _valueRecord;
+        uint256 _valuePatient;
+        uint256 _valueDoctor;
     }
 
     function current(
         Counter storage counter,
         uint8 whoIs
-    ) internal view returns (uint32) {
+    ) internal view returns (uint256) {
         return
             whoIs == 1
                 ? counter._valueRecord

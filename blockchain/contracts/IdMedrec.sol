@@ -57,15 +57,16 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _patient,
         string memory _patientRecordUri,
         uint256 _patientId,
+        address _doctorAddress,
         uint256 _doctorId
-    ) public nonReentrant returns (string memory) {
+    ) public nonReentrant {
         require(
-            doctor[msg.sender][_doctorId].doctor == msg.sender,
-            "Error: Only Doctor can add a medical record"
+            doctor[_doctorAddress][_doctorId].doctor != address(0),
+            "Error: only doctor can add a medical record"
         );
         require(
-            patient[_patient][_patientId].patient == _patient,
-            "Error: The patient is not there"
+            patient[_patient][_patientId].patient != address(0),
+            "Error: patient is not there"
         );
 
         counterId.increment(1);
@@ -82,8 +83,6 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         patientRecords[_patient][_patientId] = _medicalRecords;
 
         emit MedicalRecordAdded(_patient, _patientId, msg.sender, _doctorId);
-
-        return "Medical Record Successfully added";
     }
 
     /**
@@ -94,11 +93,11 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _doctorAddress,
         string memory _doctorUri,
         uint256 _doctorId
-    ) public returns (string memory) {
-        require(msg.sender == owner, "Error: Only owner can add a doctor");
+    ) public {
+        require(msg.sender == owner, "Error: only owner can add a doctor");
         require(
             doctor[_doctorAddress][_doctorId].id == 0,
-            "Error: Doctor already exists"
+            "Error: doctor already exist"
         );
 
         counterId.increment(2);
@@ -110,8 +109,6 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
 
         doctor[_doctorAddress][_doctorId] = _doctorStruct;
         emit DoctorAdded(_doctorAddress, _doctorId);
-
-        return "Doctor successfully added";
     }
 
     /**
@@ -122,10 +119,10 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _patientAddress,
         string memory _patientUri,
         uint256 _patientId
-    ) public returns (string memory) {
+    ) public {
         require(
             patient[_patientAddress][_patientId].id == 0,
-            "Error: Patient already exists"
+            "Error: patient already exists"
         );
 
         counterId.increment(3);
@@ -137,8 +134,6 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
 
         patient[_patientAddress][_patientId] = _patientStruct;
         emit PatientAdded(_patientAddress, _patientId);
-
-        return "Patient successfully added";
     }
 
     /**
