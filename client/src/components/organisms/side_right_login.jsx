@@ -6,28 +6,63 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useEffect, useRef, useState } from "react";
-import { getPatient } from "@/contex/contract";
-import { ethers } from "ethers";
-import { toast } from "react-toastify";
+import { useActionState } from "react";
 import { ConnectButton } from "./connect_button";
+import { getUserInfoFromIPFS } from "@/context/action";
+import { getDoctor, getPatient } from "@/context/contract";
+import { toast } from "react-toastify";
+import { logIn, sessionAuth } from "@/context/auth.server";
+import { auth } from "../../../auth";
 
 export default function SideRightLogin() {
   const formRef = useRef();
+  const [role, setRole] = useState("patient");
+
+  const han = async()=> {
+    const session = await sessionAuth();
+    console.log(session, "session");
+  }
+
+  useEffect(()=> {
+    han();
+  },[])
+
+  // 6566815518310789
+  // 0xFbE0cbCB8fef5055A9A5049cB8FC90AE1a278FB4
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(formRef.current);
     const walletAddress = formData.get("wallet_address");
     const id = formData.get("id");
-    const bigId = ethers.toBigInt(id);
+    const bigId = BigInt(id);
 
-    const response = await getPatient(walletAddress, bigId);
-
-    if (response?.id === 0) {
-      toast.info("User not found");
+    let data;
+    if (role === "patient" && id && walletAddress) {
+      const response = await getPatient(walletAddress, bigId);
+      if (response.id !== 0) {
+        const resp = await getUserInfoFromIPFS(response.uri);
+        data = resp;
+      } else {
+        toast.info("Patient not found");
+        return;
+      }
+    } else {
+      const response = await getDoctor(walletAddress, bigId);
+      if (response.id !== 0) {
+        const resp = await getUserInfoFromIPFS(response.uri);
+        data = resp;
+      } else {
+        toast.info("Doctor not found");
+        return;
+      }
     }
 
-    console.log(response, "response");
+    try {
+      await logIn(data);
+    } catch (error) {
+      console.log(error, "error");
+    }
   };
 
   return (
@@ -75,6 +110,29 @@ export default function SideRightLogin() {
             placeholder="type your id here"
             name="id"
           />
+        </div>
+        <div className="grid w-full items-center gap-1.5 mt-4">
+          <Label>User Role</Label>
+          <RadioGroup defaultValue="patient" className="flex mt-1">
+            <div className={cn("flex items-center", "space-x-2 mr-2")}>
+              <RadioGroupItem
+                value="patient"
+                id="patient"
+                name="patient"
+                onClick={(e) => setRole(e.target.value)}
+              />
+              <Label htmlFor="patient">Patient</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem
+                value="doctor"
+                id="doctor"
+                name="doctor"
+                onClick={(e) => setRole(e.target.value)}
+              />
+              <Label htmlFor="doctor">Doctor</Label>
+            </div>
+          </RadioGroup>
         </div>
         <Button className="mt-10 w-full" type="submit">
           Login

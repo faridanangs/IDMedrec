@@ -58,7 +58,7 @@ export const createRegisterPdf = async (data, wallet, ipfsUri) => {
 
   // Handle long private address
   const privateAddressText = doc.splitTextToSize(`Private Address: ${wallet.privateKey}`, 515);
-  doc.text(privateAddressText, leftMargin, topMargin + 8 * lineHeight);
+  doc.text(privateAddressText, leftMargin, topMargin + (data?.specialty ? 8 : 7) * lineHeight);
 
   // Add warning text at the bottom in red
   const warningText = '* Please keep this document safe and confidential.';

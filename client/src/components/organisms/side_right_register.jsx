@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { addPatientAction } from "@/contex/action";
+import { addPatientAction } from "@/context/action";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import { ConnectButton } from "./connect_button";
-import { formatEthErrorMsg } from "@/contex/errorHandler";
+import { formatEthErrorMsg } from "@/context/errorHandler";
 
 export default function SideRightRegister() {
   const formRef = useRef(null);
@@ -73,7 +73,7 @@ export default function SideRightRegister() {
         )}
       >
         <div className="flex justify-end gap-4">
-          <div className="gap-8 items-center hidden sm:flex">
+          <div className="gap-8 items-center flex">
             <ConnectButton />
             <Button
               variant="secondary"

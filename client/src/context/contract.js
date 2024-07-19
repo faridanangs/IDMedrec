@@ -1,4 +1,4 @@
-import { Contract, ethers } from "ethers";
+import { ethers } from "ethers";
 import { abi } from "./context";
 import { formatEthErrorMsg } from "./errorHandler";
 import { toast } from "react-toastify";
@@ -123,8 +123,6 @@ export const getDoctor = async (doctorAddress, doctorId) => {
         contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
 
         const response = await contract.getDoctor(doctorAddress, doctorId);
-
-        console.log(response, "resss")
 
         return {
             address: response[0],

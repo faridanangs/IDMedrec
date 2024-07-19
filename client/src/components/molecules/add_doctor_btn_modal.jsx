@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
 import { useEffect, useRef, useState } from "react";
-import { addDoctorAction } from "@/contex/action";
+import { addDoctorAction } from "@/context/action";
 import { useAccount } from "wagmi";
 
 export default function AddDoctorBtnModal() {

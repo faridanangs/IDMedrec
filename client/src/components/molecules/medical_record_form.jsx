@@ -16,10 +16,10 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { toast } from "react-toastify";
-import { formatEthErrorMsg } from "@/contex/errorHandler";
+import { formatEthErrorMsg } from "@/context/errorHandler";
 import { useAccount, useWriteContract } from "wagmi";
-import { addMedicalRecord, addMedicalRecordAction } from "@/contex/action";
-import { getDoctor } from "@/contex/contract";
+import { addMedicalRecord, addMedicalRecordAction } from "@/context/action";
+import { getDoctor } from "@/context/contract";
 
 export default function MedicalRecordForm() {
   const [dateVisit, setDateVisit] = useState(null);
@@ -75,6 +75,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="fullname">Full Name</Label>
                     <Input
+                      required
                       type="text"
                       id="fullname"
                       name="fullname"
@@ -84,6 +85,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="wallet_address">Wallet Address</Label>
                     <Input
+                      required
                       type="text"
                       id="wallet_address"
                       name="wallet_address"
@@ -93,6 +95,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="patient_id">Patient ID</Label>
                     <Input
+                      required
                       type="number"
                       id="patient_id"
                       name="patient_id"
@@ -104,6 +107,7 @@ export default function MedicalRecordForm() {
                       Medical Record Number
                     </Label>
                     <Input
+                      required
                       type="text"
                       id="medical_record_number"
                       name="medical_record_number"
@@ -113,6 +117,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="email">Email address</Label>
                     <Input
+                      required
                       type="email"
                       id="email"
                       name="email"
@@ -122,6 +127,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="phone_number">Phone Number</Label>
                     <Input
+                      required
                       type="text"
                       id="phone_number"
                       name="phone_number"
@@ -154,6 +160,7 @@ export default function MedicalRecordForm() {
                           selected={dateOfBirth}
                           onSelect={setDateOfBirth}
                           initialFocus
+                          required
                         />
                       </PopoverContent>
                     </Popover>
@@ -186,6 +193,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5">
                     <Label htmlFor="address">Address</Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="address"
                       name="address"
@@ -197,6 +205,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="prev_illness">Previous Illnesses</Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="prev_illness"
                       name="prev_illness"
@@ -207,6 +216,7 @@ export default function MedicalRecordForm() {
                       Surgeries or Medical Procedures
                     </Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="surge_or_medical_procedur"
                       name="surge_or_medical_procedur"
@@ -215,6 +225,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="allergy_history">Allergy History</Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="allergy_history"
                       name="allergy_history"
@@ -225,6 +236,7 @@ export default function MedicalRecordForm() {
                       Family Medical History
                     </Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="family_medical_history"
                       name="family_medical_history"
@@ -255,6 +267,7 @@ export default function MedicalRecordForm() {
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
                         <Calendar
+                          required
                           mode="single"
                           selected={dateVisit}
                           onSelect={setDateVisit}
@@ -266,6 +279,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="reason_for_visit">Reason for Visit</Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="reason_for_visit"
                       name="reason_for_visit"
@@ -276,6 +290,7 @@ export default function MedicalRecordForm() {
                       Symptoms Experienced
                     </Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="symptom_experie"
                       name="symptom_experie"
@@ -284,6 +299,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="diagnosis">Diagnosis</Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="diagnosis"
                       name="diagnosis"
@@ -294,6 +310,7 @@ export default function MedicalRecordForm() {
                       Treatment Plan or Medication
                     </Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="treat_plan_or_medica"
                       name="treat_plan_or_medica"
@@ -302,6 +319,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5">
                     <Label htmlFor="prescription">Prescription</Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="prescription"
                       name="prescription"
@@ -315,6 +333,7 @@ export default function MedicalRecordForm() {
                       Laboratory Test Results
                     </Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="lab_test_result"
                       name="lab_test_result"
@@ -323,6 +342,7 @@ export default function MedicalRecordForm() {
                   <div className="grid w-full items-center gap-1.5 mb-4">
                     <Label htmlFor="radio_result">Radiology Results</Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="radio_result"
                       name="radio_result"
@@ -333,6 +353,7 @@ export default function MedicalRecordForm() {
                       Other Specialized Test Results
                     </Label>
                     <Textarea
+                      required
                       className="resize-none"
                       id="other_speci_tes_res"
                       name="other_speci_tes_res"

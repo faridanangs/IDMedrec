@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { abi } from "@/contex/context";
+import { abi } from "@/context/context";
 import { ethers } from "ethers";
 import { useEffect } from "react";
 import { useReadContract } from "wagmi";

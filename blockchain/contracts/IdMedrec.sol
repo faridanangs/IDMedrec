@@ -144,7 +144,7 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _patient,
         uint256 _patientId
     ) public view returns (MedicalRecord[] memory) {
-        require(doctor[_patient][_patientId].id != 0, "Error: Medical record not found");
+        require(patientRecords[_patient][_patientId].length != 0, "Error: Medical record not found");
         return patientRecords[_patient][_patientId];
     }
 

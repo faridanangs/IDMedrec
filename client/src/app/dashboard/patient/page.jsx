@@ -35,7 +35,7 @@ export default async function DashboardPatient() {
             <h1 className="font-semibold text-3xl mb-6">Dashboard Patient</h1>
             <AboutPatient />
             <h1 className="font-semibold text-2xl mt-10">Patient medical record</h1>
-            <DataTable columns={PatientColumns2} data={dataPatient} />
+            <DataTable data={dataPatient} />
         </div>
     )
 }
