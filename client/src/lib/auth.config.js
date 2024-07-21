@@ -43,7 +43,6 @@ export const authConfig = {
             const user = auth?.user;
             const url = request.nextUrl.clone();
             
-            console.log(request.nextUrl.pathname, "reqq")
             if (user) {
                 if (request.nextUrl.pathname.startsWith("/auth/login") || request.nextUrl.pathname.startsWith("/auth/register")) {
                     url.pathname = `/dashboard/${user.user_role}`;

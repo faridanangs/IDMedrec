@@ -176,13 +176,13 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         return owner;
     }
     /**
-    @dev This function is used to get owner address
+    @dev This function is used to get number a doctors
     */
     function getDoctorAmount() public view returns (uint256) {
         return counterId.current(2);
     }
     /**
-    @dev This function is used to get owner address
+    @dev This function is used to get number a patients
     */
     function getPatientAmount() public view returns (uint256) {
         return counterId.current(3);

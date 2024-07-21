@@ -1,4 +1,5 @@
-import Image from "next/image"
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -30,14 +31,40 @@ export default function Footer() {
           <p className="opacity-90">Ask & Question</p>
         </div>
         <div>
-          <p className="text-lg font-medium mb-4">Legal</p>
-          <p className="opacity-90 mb-2">Privacy Policy</p>
-          <p className="opacity-90">Terms of Use</p>
+          <p className="text-lg font-medium mb-4">Dev</p>
+          <div className="flex flex-col gap-2">
+            <Link
+              href="https://github.com/faridanangs"
+              target="_blank"
+              className="flex items-end gap-2 hover:scale-110 duration-150"
+            >
+              <Image
+                src="/icons/github.svg"
+                width={30}
+                height={30}
+                alt="github"
+              />
+              Anangs
+            </Link>
+            <Link
+              href="https://github.com/ariear"
+              target="_blank"
+              className="flex items-end gap-2 hover:scale-110 duration-150"
+            >
+              <Image
+                src="/icons/github.svg"
+                width={30}
+                height={30}
+                alt="github"
+              />
+              Arie AR
+            </Link>
+          </div>
         </div>
       </div>
       <p className="text-center py-4 opacity-80 text-sm">
         © 2024 Copyright IDMedrec Inc.
       </p>
     </footer>
-  )
+  );
 }

@@ -1,4 +1,3 @@
-import { createRegisterPdf } from "@/lib/utils";
 import axios from "axios";
 import { ethers } from "ethers";
 import { addDoctor, addPatient, createMedicalRecord } from "./contract";
@@ -6,6 +5,7 @@ import { formatEthErrorMsg } from "./errorHandler";
 import { saveToIpfs } from "./handleIpfs";
 import { getDisplayName } from "@/lib/medical_record_field";
 import { toast } from "react-toastify";
+import { createRegisterPdf } from "@/lib/create_pdf";
 
 export const addPatientAction = async (data, router) => {
     try {
@@ -106,7 +106,10 @@ export const addMedicalRecordAction = async (dataPatient, patientAddress, id, do
         const patientId = BigInt(Number(id));
         const doctorId = BigInt(Number(docId));
 
-        await createMedicalRecord(patientAddress, ipfsUri, patientId, doctorAddress, doctorId);
+        const tx = await createMedicalRecord(patientAddress, ipfsUri, patientId, doctorAddress, doctorId);
+        if (tx) {
+            toast.success("Medical record created successfully");
+        }
     } catch (error) {
         return;
     }

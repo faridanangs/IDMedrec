@@ -1,14 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        PinataApiKey: process.env.PINATA_API_KEY,
-        ContractAddress: process.env.CONTRACT_ADDRESS,
-        WalletAddress: process.env.WALLET_ADDRESS,
-        PinataPinJson: process.env.PINATA_JSON_IPFS_URL,
-        PinataIpfsUrl: process.env.PINATA_IPFS_URL,
-        SecretKeyAuth: process.env.SECRET_KEY_NEXT_AUTH,
+        PINATA_API_KEY: process.env.PINATA_API_KEY,
+        PINATA_JSON_IPFS_URL: process.env.PINATA_JSON_IPFS_URL,
+        PINATA_IPFS_URL: process.env.PINATA_IPFS_URL,
         AUTH_SECRET: process.env.AUTH_SECRET,
-        ADMIN_ID: process.env.ADMIN_ID
+        ADMIN_ID: process.env.ADMIN_ID,
+        PROJECT_ID: process.env.PROJECT_ID,
     }
 };
 

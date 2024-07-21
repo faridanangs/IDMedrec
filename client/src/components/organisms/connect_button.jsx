@@ -3,7 +3,8 @@ import { useAccount, useConnect, useDisconnect, useSwitchChain } from "wagmi";
 import metamaskBefore from "@/../../public/icons/metamask-before-conn.svg";
 import metamaskAfter from "@/../../public/icons/metamask.svg";
 import eth from "@/../../public/icons/eth-logo.svg";
-import polygon from "@/../../public/icons/polygon1.svg";
+import polygonAmoy from "@/../../public/icons/polygon1.svg";
+import polygon from "@/../../public/icons/polygon.png";
 import { metaMask } from "wagmi/connectors";
 import Image from "next/image";
 import { formatEthErrorMsg } from "@/context/errorHandler";
@@ -32,7 +33,7 @@ export const ConnectButton = () => {
           <div className="dropdown dropdown-left">
             <div tabIndex={0} role="button" className="m-1">
               <Image
-                src={chainId === 1 ? eth : chainId === 80002 ? polygon : eth}
+                src={chainId === 80002 ? polygonAmoy : polygon}
                 alt="chain icon"
                 width={20}
                 height={20}
@@ -52,7 +53,7 @@ export const ConnectButton = () => {
                   onClick={() => switchChain({ chainId: chain.id })}
                 >
                   <Image
-                    src={chain.name == "Polygon" ? polygon : eth}
+                    src={chain.name == "Polygon Amoy" ? polygonAmoy : polygon}
                     alt="metamask icon"
                     width={20}
                     height={20}

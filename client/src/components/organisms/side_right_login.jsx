@@ -13,14 +13,15 @@ import { toast } from "react-toastify";
 import { logIn, sessionAuth } from "@/context/auth.server";
 import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
+import { Spinnaker } from "next/font/google";
+import { Spinner } from "@nextui-org/react";
 
 export default function SideRightLogin() {
   const formRef = useRef();
   const [role, setRole] = useState();
-  const router = useRouter();
   const { address } = useAccount();
-
-  console.log(role, "role");
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     const formData = new FormData(formRef.current);
@@ -67,10 +68,11 @@ export default function SideRightLogin() {
 
     if (data) {
       try {
-        console.log("tess");
+        setIsLoading(true);
         await logIn(data);
-        console.log("tess2");
-        window.location.reload();
+        router.push(`/dashboard/${data.user_role}`);
+        setIsLoading(false);
+        router;
       } catch (error) {
         console.log(error, "errorfff sas");
       }
@@ -146,8 +148,13 @@ export default function SideRightLogin() {
             </div>
           </RadioGroup>
         </div>
-        <Button className="mt-10 w-full" type="submit">
-          Login
+
+        <Button className="mt-10 w-full" type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <Spinner color="default" className="py-1" size="md" />
+          ) : (
+            <p>Login</p>
+          )}
         </Button>
       </form>
     </aside>

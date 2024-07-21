@@ -1,14 +1,14 @@
-import GridPattern from "@/components/magicui/grid-pattern"
-import Navbar from "@/components/organisms/navbar"
-import Particles from "@/components/magicui/particles"
-import Image from "next/image"
-import Footer from "@/components/organisms/footer"
-import { cn } from "@/lib/utils"
-import AnimatedShinyText from "@/components/magicui/animated-shiny-text"
-import ShimmerButton from "@/components/magicui/shimmer-button"
-import Link from "next/link"
-import DevCards from "@/components/molecules/dev_cards"
-import AdvantageCards from "@/components/molecules/advantage_cards"
+import GridPattern from "@/components/magicui/grid-pattern";
+import Navbar from "@/components/organisms/navbar";
+import Particles from "@/components/magicui/particles";
+import Image from "next/image";
+import Footer from "@/components/organisms/footer";
+import { cn } from "@/lib/utils";
+import AnimatedShinyText from "@/components/magicui/animated-shiny-text";
+import ShimmerButton from "@/components/magicui/shimmer-button";
+import Link from "next/link";
+import AdvantageCards from "@/components/molecules/advantage_cards";
+import aboutUS from "@/../../public/images/about_us_img.png";
 
 export default function Home() {
   return (
@@ -20,10 +20,10 @@ export default function Home() {
           <aside className="pb-10 pt-20 lg:pb-0 lg:pt-0">
             <div
               className={cn(
-                "w-max group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 mb-5"
+                "w-max group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 mb-5 overflow-hidden"
               )}
             >
-              <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+              <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:dark:text-neutral-400">
                 <span>Manage your medical record here ✨</span>
               </AnimatedShinyText>
             </div>
@@ -35,10 +35,10 @@ export default function Home() {
               Innovative Solutions for Protecting and Managing Medical Records
               with Unparalleled Security and Efficiency
             </p>
-            <Link href="/auth/login" className="block w-max">
+            <Link href="#" className="block w-max">
               <ShimmerButton className="shadow-2xl">
                 <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-base">
-                  Get started
+                  whitepaper
                 </span>
               </ShimmerButton>
             </Link>
@@ -135,17 +135,46 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="mb-36" id="aboutus">
+      <div className="mb-36 px-6" id="aboutus">
         <p className="font-semibold text-[28px] mb-4 text-[#0F172A] text-center">
           About <span className="text-[#FF5757]">Us</span>
         </p>
         <p className="text-[#475569] text-center sm:px-0 px-6 sm:w-[530px] mx-auto mb-16">
-          We are a team from Indonesia that operates in the technology sector.
-          We make various kinds of systems from various fields
+          IDMedRec is a blockchain-based medical record platform on the Polygon
+          network. We aim to facilitate secure, transparent, and efficient
+          management and access to healthcare data.
         </p>
-        <DevCards />
+        <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-12 lg:justify-center">
+          <Image
+            src={aboutUS}
+            alt="about us img"
+            className="w-[250px] sm:w-[300px] lg:w-[420px]"
+            width={420}
+            height={300}
+          />
+          <div className="lg:text-start">
+            <p className="font-semibold text-[22px] text-[#0F172A]">
+              Our <span className="text-[#FF5757]">Goal</span>
+            </p>
+            <p className="text-[#475569] sm:px-0 px-6 sm:w-[530px] mx-auto mb-8">
+              Our goal is to empower individuals by giving them full control
+              over their medical records. We ensure that health information is
+              securely stored and accessed only with appropriate permissions.
+            </p>
+            <p className="font-semibold text-[22px] text-[#0F172A]">
+              Our <span className="text-[#FF5757]">Vision</span>
+            </p>
+            <p className="text-[#475569] sm:px-0 px-6 sm:w-[530px] mx-auto mb-8">
+              Our vision is to create a future where everyone can easily access
+              their medical records wherever they are, enhancing the
+              effectiveness of healthcare services. We chose Polygon for its
+              high scalability, low transaction costs, and strong security,
+              ensuring our platform can operate efficiently.
+            </p>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>
-  )
+  );
 }

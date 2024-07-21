@@ -40,6 +40,10 @@ export function formatEthErrorMsg(error) {
     } else if (error?.message.includes('bad address checksum')) {
         toast.info("The Ethereum address you entered is not valid. Please make sure you enter a correct address with the proper checksum format (EIP-55)");
         throw new Error("The Ethereum address you entered is not valid. Please make sure you enter a correct address with the proper checksum format (EIP-55)")
+    } else if (error?.message.includes('user rejected action')) {
+        toast.info('User rejected action (action="requestAccess", reason="rejected")');
+    } else if (error?.message.includes('could not coalesce error')) {
+        toast.info('Failed to connect to wallet. Please check if your wallet is open and try again.');
     } else {
         toast.error(error?.message || "An unknown error occurred.");
     }

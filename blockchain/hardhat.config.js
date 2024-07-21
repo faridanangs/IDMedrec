@@ -1,6 +1,6 @@
+require("dotenv").config();
 require("@nomicfoundation/hardhat-toolbox");
 
-const PRIVATE_KEY = "983833d689e1a9481c585d846a50676cea2825bbbdcd5c0e2f624a13d54c0455";
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -8,14 +8,9 @@ module.exports = {
   networks: {
     polygon_amoy: {
       url: "https://polygon-amoy-bor-rpc.publicnode.com",
-      accounts: [`0x${PRIVATE_KEY}`],
+      accounts: [`0x${process.env.PRIVATE_ADDRESS}`],
       chainId: 80002
-    },
-    ganache: {
-      url: "HTTP://127.0.0.1:7545",
-      accounts: [`0x64f30500320597696b06e29ec6d7d820221c1fe67d706141b7a5db6434d4f4d5`],
-      chainId: 1337
-    },
+    }
   },
   solidity: {
     version: "0.8.24",

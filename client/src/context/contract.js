@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { abi } from "./context";
+import { abi, contractAddress } from "./context";
 import { formatEthErrorMsg } from "./errorHandler";
 import { toast } from "react-toastify";
 
@@ -9,7 +9,7 @@ export const addPatient = async (patientAddress, patientUri, patientId) => {
     try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
+        contract = new ethers.Contract(contractAddress, abi, signer);
 
         const tx = await contract.addPatient(patientAddress, patientUri, patientId);
         await tx.wait();
@@ -30,7 +30,7 @@ export const addDoctor = async (doctorAddress, doctorUri, doctorId) => {
     try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
+        contract = new ethers.Contract(contractAddress, abi, signer);
 
         const tx = await contract.addDoctor(doctorAddress, doctorUri, doctorId);
         await tx.wait();
@@ -51,11 +51,11 @@ export const createMedicalRecord = async (patientAddress, ipfsUri, patientId, do
     try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
+        contract = new ethers.Contract(contractAddress, abi, signer);
 
         const tx = await contract.createMedicalRecord(patientAddress, ipfsUri, patientId, doctorAddress, doctorId);
         await tx.wait();
-        toast.success("Medical record created successfully");
+        return tx;
 
     } catch (e) {
         if (e.data && contract) {
@@ -71,11 +71,10 @@ export const createMedicalRecord = async (patientAddress, ipfsUri, patientId, do
 
 // get Patient information
 export const getPatient = async (patientAddress, patientId) => {
-    let contract;
     try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
+        const contract = new ethers.Contract(contractAddress, abi, signer);
 
         const response = await contract.getPatient(patientAddress, patientId);
 
@@ -91,11 +90,10 @@ export const getPatient = async (patientAddress, patientId) => {
 
 // get Doctor information
 export const getDoctor = async (doctorAddress, doctorId) => {
-    let contract;
     try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
+        const contract = new ethers.Contract(contractAddress, abi, signer);
 
         const response = await contract.getDoctor(doctorAddress, doctorId);
 
@@ -111,14 +109,39 @@ export const getDoctor = async (doctorAddress, doctorId) => {
 
 // get Doctor information
 export const getOwner = async () => {
-    let contract;
     try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
+        const contract = new ethers.Contract(contractAddress, abi, signer);
 
         const response = await contract.getOwner();
         return response
+    } catch (e) {
+        formatEthErrorMsg(e)
+    }
+}
+// get number a doctors
+export const getDoctorAmount = async () => {
+    try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, abi, signer);
+
+        const response = await contract.getDoctorAmount();
+        return Number(response)
+    } catch (e) {
+        formatEthErrorMsg(e)
+    }
+}
+// get number a patients
+export const getPatientAmount = async () => {
+    try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, abi, signer);
+
+        const response = await contract.getPatientAmount();
+        return Number(response)
     } catch (e) {
         formatEthErrorMsg(e)
     }
@@ -129,7 +152,7 @@ export const getMedicalRecords = async (patientAddress, patientId) => {
     try {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        const contract = new ethers.Contract(process.env.ContractAddress, abi, signer);
+        const contract = new ethers.Contract(contractAddress, abi, signer);
 
         const responses = await contract.getMedicalRecords(patientAddress, patientId);
 

@@ -6,6 +6,7 @@ import { sessionAuth } from "@/context/auth.server";
 import { getMedicalRecords } from "@/context/contract";
 import { PatientColumns2 } from "@/lib/data-table-columns";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function DashboardPatient() {
   const [medicalRecordDatas, setMedicalRecordDatas] = useState([]);

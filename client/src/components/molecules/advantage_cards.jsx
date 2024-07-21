@@ -2,8 +2,8 @@ import Image from "next/image"
 
 export default function AdvantageCards() {
   return (
-    <div className="flex justify-between items-center flex-wrap px-6 lg:px-10 2xl:px-48">
-      <div className="w-full lg:w-[410px] text-white hover:text-[#FF5757] flex items-center bg-[#FF5757] hover:bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300">
+    <div className="flex flex-col px-10 lg:flex-row lg:flex-wrap lg:justify-around lg:gap-5">
+      <div className="w-full lg:w-[450px] text-white hover:text-[#FF5757] flex items-center bg-[#FF5757] hover:bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300">
         <Image
           src="/icons/lock.svg"
           alt="lock-icon"
@@ -21,7 +21,7 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full lg:w-[410px] text-[#FF5757] hover:text-white flex items-center bg-white hover:bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0 mt-5">
+      <div className="w-full lg:w-[450px] text-[#FF5757] hover:text-white flex items-center bg-white hover:bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0 mt-5">
         <Image
           src="/icons/money.svg"
           alt="lock-icon"
@@ -39,7 +39,7 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full lg:w-[410px] text-white hover:text-[#FF5757] flex items-center bg-[#FF5757] hover:bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0 mt-5">
+      <div className="w-full lg:w-[450px] text-white hover:text-[#FF5757] flex items-center bg-[#FF5757] hover:bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0 mt-5">
         <Image
           src="/icons/timbangan.svg"
           alt="lock-icon"

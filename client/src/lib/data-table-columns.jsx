@@ -7,7 +7,9 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  getKeyValue,
 } from "@nextui-org/react";
+
 import {
   Dialog,
   DialogContent,
@@ -16,43 +18,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { cn } from "./utils";
 import { fieldMapping } from "./medical_record_field";
-
-export const PatientColumns = [
-  {
-    accessorKey: "id",
-    header: "Id",
-  },
-  {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
-    accessorKey: "username",
-    header: "Username",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "phone_number",
-    header: "Phone Number",
-  },
-  {
-    accessorKey: "gender",
-    header: "Gender",
-  },
-  {
-    accessorKey: "date_of_birth",
-    header: "Date of Birth",
-  },
-  {
-    accessorKey: "public_address",
-    header: "Public Address",
-  },
-];
 
 export const PatientColumns2 = [
   {
@@ -90,27 +56,31 @@ export const PatientColumns2 = [
           <DialogTrigger asChild>
             <Button>Detail</Button>
           </DialogTrigger>
-          <DialogContent className="lg:max-w-4xl xl:max-w-6xl w-full md:max-w-2xl overflow-auto max-h-[80%] rounded-md">
+          <DialogContent className="lg:max-w-3xl xl:max-w-4xl w-full md:max-w-2xl max-h-[90%] h-full rounded-md">
             <DialogHeader>
-              <DialogTitle className="mb-4">
+              <DialogTitle className="mb-2">
                 Detail Patient Medical Record
               </DialogTitle>
-              <DialogDescription></DialogDescription>
             </DialogHeader>
-            <Table isStriped aria-label="Example static collection table">
-              <TableHeader>
-                <TableColumn>Field</TableColumn>
-                <TableColumn>Information</TableColumn>
-              </TableHeader>
-              <TableBody className="overflow-auto">
-                {separatedData.map((item, i) => (
-                  <TableRow key={i}>
-                    <TableCell>{item.field}</TableCell>
-                    <TableCell>{item.information}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+              <Table
+                className="min-w-full"
+                isHeaderSticky
+                classNames={{
+                  base: "max-h-[80vh] overflow-scroll",
+                }}
+              >
+                <TableHeader className="fixed top-0 bg-white/80 z-10">
+                  <TableColumn key="field">Field</TableColumn>
+                  <TableColumn key="information">Information</TableColumn>
+                </TableHeader>
+                <TableBody items={separatedData}>
+                  {(item) => (
+                    <TableRow key={item.field}>
+                      {(col) => <TableCell>{getKeyValue(item, col)}</TableCell>}
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
           </DialogContent>
         </Dialog>
       );
