@@ -2,7 +2,6 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ContextProvider } from "@/context/provider"
 import 'react-toastify/dist/ReactToastify.css';
-import { getServerSession } from "next-auth";
 import { ToastContainer } from "react-toastify";
 import { NextUIProvider } from "@nextui-org/react";
 const inter = Inter({ subsets: ["latin"] })

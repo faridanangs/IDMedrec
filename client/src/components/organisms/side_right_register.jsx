@@ -32,7 +32,7 @@ export default function SideRightRegister() {
       await addPatientAction(data, router);
       setisPending(false);
     } catch (error) {
-      formatEthErrorMsg(error);
+      return;
     }
   };
 

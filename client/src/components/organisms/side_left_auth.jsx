@@ -1,5 +1,6 @@
-import Image from "next/image"
-import { cn } from "@/lib/utils"
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function SideLeftAuth() {
   return (
@@ -11,7 +12,9 @@ export default function SideLeftAuth() {
         "p-7"
       )}
     >
-      <Image src={"/images/logo.png"} width={175} height={90} alt="logo" />
+      <Link href="/" className="cursor-pointer">
+        <Image src={"/images/logo.png"} width={175} height={90} alt="logo" />
+      </Link>
       <p
         className={cn(
           "text-white lg:text-4xl xl:text-5xl font-extrabold leading-tight",
@@ -22,5 +25,5 @@ export default function SideLeftAuth() {
         faithfulness the best relationship.
       </p>
     </aside>
-  )
+  );
 }

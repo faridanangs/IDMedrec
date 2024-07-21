@@ -6,12 +6,24 @@ import eth from "@/../../public/icons/eth-logo.svg";
 import polygon from "@/../../public/icons/polygon1.svg";
 import { metaMask } from "wagmi/connectors";
 import Image from "next/image";
+import { formatEthErrorMsg } from "@/context/errorHandler";
+import { useEffect } from "react";
 
 export const ConnectButton = () => {
   const { address, chainId } = useAccount();
   const { connect } = useConnect();
   const { disconnect } = useDisconnect();
-  const { chains, switchChainAsync } = useSwitchChain();
+  const { chains, switchChain, error } = useSwitchChain();
+
+  useEffect(() => {
+    if (error) {
+      try {
+        return formatEthErrorMsg(error);
+      } catch (error) {
+        return;
+      }
+    }
+  }, [error]);
 
   return (
     <div>
@@ -37,7 +49,7 @@ export const ConnectButton = () => {
                 <div
                   className="flex gap-2 items-center justify-start p-2 my-1 hover:cursor-pointer hover:scale-110 transition-all duration-300"
                   key={chain.id}
-                  onClick={async () => switchChainAsync({ chainId: chain.id })}
+                  onClick={() => switchChain({ chainId: chain.id })}
                 >
                   <Image
                     src={chain.name == "Polygon" ? polygon : eth}

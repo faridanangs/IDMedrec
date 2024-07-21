@@ -144,7 +144,6 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _patient,
         uint256 _patientId
     ) public view returns (MedicalRecord[] memory) {
-        require(patientRecords[_patient][_patientId].length != 0, "Error: Medical record not found");
         return patientRecords[_patient][_patientId];
     }
 
@@ -156,10 +155,6 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _doctorAddress,
         uint256 _doctorId
     ) public view returns (DoctorStruct memory) {
-        require(
-            doctor[_doctorAddress][_doctorId].id != 0,
-            "Error: Doctor not found"
-        );
         return doctor[_doctorAddress][_doctorId];
     }
 
@@ -171,10 +166,6 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
         address _patientAddress,
         uint256 _patientId
     ) public view returns (PatientStruct memory) {
-        require(
-            patient[_patientAddress][_patientId].id != 0,
-            "Error: Patient not found"
-        );
         return patient[_patientAddress][_patientId];
     }
 
@@ -183,5 +174,17 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
     */
     function getOwner() public view returns (address) {
         return owner;
+    }
+    /**
+    @dev This function is used to get owner address
+    */
+    function getDoctorAmount() public view returns (uint256) {
+        return counterId.current(2);
+    }
+    /**
+    @dev This function is used to get owner address
+    */
+    function getPatientAmount() public view returns (uint256) {
+        return counterId.current(3);
     }
 }

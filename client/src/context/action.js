@@ -6,8 +6,6 @@ import { formatEthErrorMsg } from "./errorHandler";
 import { saveToIpfs } from "./handleIpfs";
 import { getDisplayName } from "@/lib/medical_record_field";
 import { toast } from "react-toastify";
-import { auth, signIn } from "../../auth";
-import { abi } from "./context";
 
 export const addPatientAction = async (data, router) => {
     try {
@@ -36,22 +34,22 @@ export const addPatientAction = async (data, router) => {
 
 
         // // save patient data to ipfs
-
         const ipfsUri = await saveToIpfs(dataPatient);
-        const patientId = BigInt(id)
+        const patientId = BigInt(Number(id));
 
 
-        await addPatient(walletAddress, ipfsUri, patientId);
+        const tx = await addPatient(walletAddress, ipfsUri, patientId);
 
-        await createRegisterPdf(
-            dataPatient,
-            wallet,
-            ipfsUri
-        )
-
-        router.push("/auth/login");
+        if (tx) {
+            await createRegisterPdf(
+                dataPatient,
+                wallet,
+                ipfsUri
+            )
+            toast.success("Patient created successfully");
+            router.push("/auth/login");
+        }
     } catch (error) {
-        formatEthErrorMsg(error);
         return;
     }
 };
@@ -64,7 +62,7 @@ export const addDoctorAction = async (dataDoctor) => {
 
         // Create a random Id for the docotr
         const id = Number(Math.random().toString().split(".")[1]);
-        const doctorId = BigInt(id)
+        const doctorId = BigInt(Number(id))
 
         // Create a date for account creation
         const createdAt = new Date().toLocaleString([], { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
@@ -76,24 +74,25 @@ export const addDoctorAction = async (dataDoctor) => {
         dataDoctor.user_role = "doctor";
 
         // save docotr data to ipfs
-
-
         const ipfsUri = await saveToIpfs(dataDoctor);
 
-        await addDoctor(walletAddress, ipfsUri, doctorId);
+        const tx = await addDoctor(walletAddress, ipfsUri, doctorId);
 
-        await createRegisterPdf(
-            dataDoctor,
-            wallet,
-            ipfsUri
-        );
+        if (tx) {
+            await createRegisterPdf(
+                dataDoctor,
+                wallet,
+                ipfsUri
+            )
+            toast.success("Doctor created successfully");
+        }
+
     } catch (error) {
-        formatEthErrorMsg(error);
         return;
     }
 }
 
-export const addMedicalRecordAction = async (dataPatient, patientAddress, id, doctorAddress) => {
+export const addMedicalRecordAction = async (dataPatient, patientAddress, id, doctorAddress, docId) => {
     try {
         // Create a date for account creation
         const createdAt = new Date().toLocaleString([], { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
@@ -103,15 +102,12 @@ export const addMedicalRecordAction = async (dataPatient, patientAddress, id, do
 
         // save docotr data to ipfs
         const ipfsUri = await saveToIpfs(dataPatient);
-        // const ipfsUri = `${process.env.PinataIpfsUrl}/vghvgh1vc2fg3c1tf23c1fc21c2f1c2fd`
 
-        const patientId = BigInt(id);
-        const doctorId = BigInt(6566815518310789);
+        const patientId = BigInt(Number(id));
+        const doctorId = BigInt(Number(docId));
 
         await createMedicalRecord(patientAddress, ipfsUri, patientId, doctorAddress, doctorId);
-
     } catch (error) {
-        formatEthErrorMsg(error);
         return;
     }
 }
@@ -130,17 +126,11 @@ export const getPatientRecordFromIPFS = async (datas) => {
             })
         );
 
-        const processedData = allData
-            .filter((data) => data !== null)
-            .map((data) =>
-                Object.entries(data).map(([field, information]) => ({
-                    field: getDisplayName(field),
-                    information,
-                }))
-            );
-        return processedData.flat();
+
+        return allData;
     } catch (e) {
         toast.error("Failed to fetch data from server");
+        return;
     }
 }
 
@@ -148,14 +138,13 @@ export const getUserInfoFromIPFS = async (uri) => {
     try {
         const resp = await fetch(uri);
         if (!resp.ok) {
-            toast.error("Failed to fetch data from server");
-            return null;
+            toast.error("Failed fetch data from server");
+            return;
         } else {
             return await resp.json();
         }
     } catch (error) {
-        console.log(error);
-        toast.error("Failed to fetch data from server");
+        toast.error("Failed fetch data from server");
         return;
     }
 }

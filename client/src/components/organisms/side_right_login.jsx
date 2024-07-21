@@ -6,62 +6,74 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useEffect, useRef, useState } from "react";
-import { useActionState } from "react";
 import { ConnectButton } from "./connect_button";
 import { getUserInfoFromIPFS } from "@/context/action";
-import { getDoctor, getPatient } from "@/context/contract";
+import { getDoctor, getOwner, getPatient } from "@/context/contract";
 import { toast } from "react-toastify";
 import { logIn, sessionAuth } from "@/context/auth.server";
-import { auth } from "../../../auth";
+import { useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
 
 export default function SideRightLogin() {
   const formRef = useRef();
-  const [role, setRole] = useState("patient");
+  const [role, setRole] = useState();
+  const router = useRouter();
+  const { address } = useAccount();
 
-  const han = async()=> {
-    const session = await sessionAuth();
-    console.log(session, "session");
-  }
+  console.log(role, "role");
 
-  useEffect(()=> {
-    han();
-  },[])
-
-  // 6566815518310789
-  // 0xFbE0cbCB8fef5055A9A5049cB8FC90AE1a278FB4
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const formData = new FormData(formRef.current);
     const walletAddress = formData.get("wallet_address");
     const id = formData.get("id");
-    const bigId = BigInt(id);
+    const bigId = BigInt(Number(id));
 
     let data;
-    if (role === "patient" && id && walletAddress) {
-      const response = await getPatient(walletAddress, bigId);
-      if (response.id !== 0) {
-        const resp = await getUserInfoFromIPFS(response.uri);
-        data = resp;
+    try {
+      if (role === "patient" && id && walletAddress) {
+        const response = await getPatient(walletAddress, bigId);
+        if (response?.id !== 0 && response !== undefined) {
+          const resp = await getUserInfoFromIPFS(response?.uri);
+          data = resp;
+        } else {
+          toast.info("Patient not found");
+          return;
+        }
+      } else if (role === "doctor" && id && walletAddress) {
+        const response = await getDoctor(walletAddress, bigId);
+        if (response?.id !== 0 && response !== undefined) {
+          const resp = await getUserInfoFromIPFS(response?.uri);
+          data = resp;
+        } else {
+          toast.info("Doctor not found");
+          return;
+        }
       } else {
-        toast.info("Patient not found");
-        return;
+        if (walletAddress === address && id === process.env.ADMIN_ID) {
+          const response = await getOwner();
+          if (response === address) {
+            data = {
+              user_role: "admin",
+            };
+          }
+        } else {
+          toast.info("Choose a user role");
+          return;
+        }
       }
-    } else {
-      const response = await getDoctor(walletAddress, bigId);
-      if (response.id !== 0) {
-        const resp = await getUserInfoFromIPFS(response.uri);
-        data = resp;
-      } else {
-        toast.info("Doctor not found");
-        return;
-      }
+    } catch (error) {
+      return;
     }
 
-    try {
-      await logIn(data);
-    } catch (error) {
-      console.log(error, "error");
+    if (data) {
+      try {
+        console.log("tess");
+        await logIn(data);
+        console.log("tess2");
+        window.location.reload();
+      } catch (error) {
+        console.log(error, "errorfff sas");
+      }
     }
   };
 
@@ -79,7 +91,7 @@ export default function SideRightLogin() {
         </Button>
       </div>
 
-      <form className="mt-32" onSubmit={handleSubmit} ref={formRef}>
+      <form className="mt-32" action={handleSubmit} ref={formRef}>
         <p
           className={cn(
             "text-center text-2xl text-[#0F172A] font-semibold",
@@ -113,7 +125,7 @@ export default function SideRightLogin() {
         </div>
         <div className="grid w-full items-center gap-1.5 mt-4">
           <Label>User Role</Label>
-          <RadioGroup defaultValue="patient" className="flex mt-1">
+          <RadioGroup defaultValue="admin" className="flex mt-1">
             <div className={cn("flex items-center", "space-x-2 mr-2")}>
               <RadioGroupItem
                 value="patient"

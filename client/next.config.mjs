@@ -7,7 +7,8 @@ const nextConfig = {
         PinataPinJson: process.env.PINATA_JSON_IPFS_URL,
         PinataIpfsUrl: process.env.PINATA_IPFS_URL,
         SecretKeyAuth: process.env.SECRET_KEY_NEXT_AUTH,
-        AUTH_SECRET: process.env.AUTH_SECRET
+        AUTH_SECRET: process.env.AUTH_SECRET,
+        ADMIN_ID: process.env.ADMIN_ID
     }
 };
 

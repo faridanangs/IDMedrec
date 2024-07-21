@@ -1,6 +1,6 @@
 "use server"
 
-import { auth, signIn } from "../../auth";
+import { auth, signIn, signOut } from "../lib/auth";
 
 export const logIn = async (formData) => {
     try {
@@ -14,11 +14,16 @@ export const logIn = async (formData) => {
                     return 'Something went wrong.';
             }
         }
+        console.log(error, "s error")
         throw error;
     }
 }
 
 
-export const sessionAuth = async ()=> {
+export const sessionAuth = async () => {
     return await auth();
+}
+
+export const logout = async () => {
+    await signOut();
 }

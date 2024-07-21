@@ -5,9 +5,7 @@ export default function Template({ children }) {
     return (
         <>
             {children}
-            <ProgressBar
-                color='#0F172A'
-            />
+            
         </>
     )
 }

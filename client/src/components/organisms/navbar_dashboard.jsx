@@ -10,9 +10,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ConnectButton } from "./connect_button";
+import { logout, sessionAuth } from "@/context/auth.server";
+import { useEffect, useState } from "react";
 
 export default function NavbarDashboard() {
   const pathname = usePathname();
+
+  const [user, setUser] = useState();
+
+  const handleSessions = async () => {
+    const { user } = await sessionAuth();
+    setUser(user);
+  };
+
+  useEffect(() => {
+    handleSessions();
+  }, []);
 
   return (
     <nav
@@ -33,40 +46,10 @@ export default function NavbarDashboard() {
             className="w-auto h-auto sm:mr-12"
           />
         </Link>
-        <ul
-          className={cn("font-medium text-sm text-[#71717A]", "hidden sm:flex")}
-        >
-          <li
-            className={cn(
-              "mr-6 ",
-              "hover:text-black duration-300",
-              `${pathname == "/dashboard" ? "text-black" : ""}`
-            )}
-          >
-            <Link href="/dashboard">Admin</Link>
-          </li>
-          <li
-            className={cn(
-              "mr-6 ",
-              "hover:text-black duration-300",
-              `${pathname == "/dashboard/doctor" ? "text-black" : ""}`
-            )}
-          >
-            <Link href="/dashboard/doctor">Doctor</Link>
-          </li>
-          <li
-            className={cn(
-              "hover:text-black duration-300",
-              `${pathname == "/dashboard/patient" ? "text-black" : ""}`
-            )}
-          >
-            <Link href="/dashboard/patient">Patient</Link>
-          </li>
-        </ul>
       </aside>
       <div className="gap-8 items-center hidden sm:flex">
         <ConnectButton />
-        <Button variant="destructive">Logout</Button>
+        <LogoutButton />
       </div>
       <Popover>
         <PopoverTrigger asChild>
@@ -88,7 +71,7 @@ export default function NavbarDashboard() {
             <li>
               <div className=" sm:hidden mt-8">
                 <ConnectButton />
-                <Button variant="destructive" className="w-full mt-1">Logout</Button>
+                <LogoutButton />
               </div>
             </li>
           </ul>
@@ -97,3 +80,16 @@ export default function NavbarDashboard() {
     </nav>
   );
 }
+
+const LogoutButton = () => {
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = "/auth/login";
+  };
+
+  return (
+    <Button variant="destructive" onClick={handleLogout}>
+      Logout
+    </Button>
+  );
+};

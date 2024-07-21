@@ -1,41 +1,54 @@
-import AboutPatient from "@/components/molecules/about_patient"
-import { DataTable } from "@/components/ui/data-table"
-import { PatientColumns2 } from "@/lib/data-table-columns"
+"use client";
+import AboutPatient from "@/components/molecules/about_patient";
+import { DataTable } from "@/components/ui/data-table";
+import { getPatientRecordFromIPFS } from "@/context/action";
+import { sessionAuth } from "@/context/auth.server";
+import { getMedicalRecords } from "@/context/contract";
+import { PatientColumns2 } from "@/lib/data-table-columns";
+import { useEffect, useState } from "react";
 
-async function getDataPatient() {
-    return [
-        {
-            id: '1',
-            name: 'Rehan kopling',
-            username: 'rehancu',
-            email: 'rehan@gmail.com',
-            gender: 'Male',
-            phone_number: '088110222222',
-            date_of_birth: '20 Januari 2005',
-            public_address: '0x696969'
-        },
-        {
-            id: '2',
-            name: 'Kai cenat',
-            username: 'kaicenut',
-            email: 'kai@gmail.com',
-            gender: 'Male',
-            phone_number: '088110222222',
-            date_of_birth: '20 Februari 2005',
-            public_address: '0x696969'
-        },
-    ]
-}
+export default function DashboardPatient() {
+  const [medicalRecordDatas, setMedicalRecordDatas] = useState([]);
+  const [patient, setPatient] = useState();
 
-export default async function DashboardPatient() {
-    const dataPatient = await getDataPatient()
+  const handleSessions = async () => {
+    const { user } = await sessionAuth();
+    setPatient(user);
+  };
 
-    return (
-        <div>
-            <h1 className="font-semibold text-3xl mb-6">Dashboard Patient</h1>
-            <AboutPatient />
-            <h1 className="font-semibold text-2xl mt-10">Patient medical record</h1>
-            <DataTable data={dataPatient} />
-        </div>
-    )
+  const handleSubmit = async (id, wallet) => {
+    const bigId = BigInt(Number(id));
+
+    try {
+      const responses = await getMedicalRecords(wallet, bigId);
+      if (responses.length !== 0 && responses !== undefined) {
+        const resp = await getPatientRecordFromIPFS(responses);
+        setMedicalRecordDatas(resp);
+      } else {
+        toast.info("Patient records not found");
+        setMedicalRecordDatas([]);
+      }
+    } catch (error) {
+      return;
+    }
+  };
+
+  useEffect(() => {
+    handleSessions();
+  }, []);
+
+  useEffect(() => {
+    if (patient) {
+      handleSubmit(patient.id, patient.wallet_address);
+    }
+  }, [patient]);
+
+  return (
+    <div>
+      <h1 className="font-semibold text-3xl mb-6">Dashboard Patient</h1>
+      <AboutPatient patient={patient} />
+      <h1 className="font-semibold text-2xl mt-10">Patient medical record</h1>
+      <DataTable columns={PatientColumns2} data={medicalRecordDatas} />
+    </div>
+  );
 }
