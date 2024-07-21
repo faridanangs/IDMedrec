@@ -81,9 +81,9 @@ export default function Home() {
       </div>
       <div className="relative overflow-hidden mb-44" id="features">
         <Particles
-          className="absolute inset-0 -z-10"
+          className="absolute inset-0 z-10"
           quantity={170}
-          ease={80}
+          ease={50}
           size={1.2}
           color="#000000"
           refresh

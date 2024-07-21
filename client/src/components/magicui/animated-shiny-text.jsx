@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 const AnimatedShinyText = ({
   children,
   className,
-  shimmerWidth = 10000, // Adjust the default width if needed
+  shimmerWidth = 100, // Adjust the default width if needed
 }) => {
   return (
     <p
