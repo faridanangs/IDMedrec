@@ -69,7 +69,7 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        shimmer: {
+        "shimmer": {
           "0%, 90%, 100%": {
             "background-position": "calc(-100% - var(--shimmer-width)) 0",
           },
