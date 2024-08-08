@@ -2,7 +2,7 @@
 
 IDMedrec is a web-based medical record application designed to facilitate efficient and secure storage, management, and access to medical data. This application utilizes Next.js for the frontend, Polygon blockchain to reduce transaction costs, and IPFS (InterPlanetary File System) for decentralized data storage.
 
-[IDMedrec image](https://github.com/faridanangs/my-portfolio/blob/main/public/projects/idmedrec-web.png)
+![IDMedrec image](https://github.com/faridanangs/my-portfolio/blob/main/public/projects/idmedrec-web.png)
 
 ## Key Features
 
