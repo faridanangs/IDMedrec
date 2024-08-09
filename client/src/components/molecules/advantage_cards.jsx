@@ -1,9 +1,9 @@
-import Image from "next/image"
+import Image from "next/image";
 
 export default function AdvantageCards() {
   return (
-    <div className="flex flex-col px-10 lg:flex-row lg:flex-wrap lg:justify-around lg:gap-5">
-      <div className="w-full lg:w-[450px] text-white hover:text-[#FF5757] flex items-center bg-[#FF5757] hover:bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300">
+    <div className="grid grid-cols-1 md:grid-cols-2 px-8 gap-4 md:gap-6 max-w-5xl w-full mx-auto">
+      <div className="w-full text-white flex items-center bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
         <Image
           src="/icons/lock.svg"
           alt="lock-icon"
@@ -16,12 +16,13 @@ export default function AdvantageCards() {
             High Data Security and Privacy
           </p>
           <p className="text-sm">
-            Blockchain technology ensures high security and privacy for medical
-            records, boosting user confidence.
+            Blockchain technology ensures high security and privacy. Data on the
+            blockchain is protected by strong cryptography, making it very
+            difficult to alter or delete.
           </p>
         </div>
       </div>
-      <div className="w-full lg:w-[450px] text-[#FF5757] hover:text-white flex items-center bg-white hover:bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0 mt-5">
+      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
         <Image
           src="/icons/money.svg"
           alt="lock-icon"
@@ -31,7 +32,7 @@ export default function AdvantageCards() {
         />
         <div>
           <p className="font-semibold text-xl mb-2">
-            Reducing Transaction Fees with Polygon (Layer 2)
+            Reducing Transaction Fees with Polygon
           </p>
           <p className="text-sm">
             Polygon reduces Ethereum transaction costs, making high-volume
@@ -39,7 +40,23 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full lg:w-[450px] text-white hover:text-[#FF5757] flex items-center bg-[#FF5757] hover:bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0 mt-5">
+      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+        <Image
+          src="/icons/integration.svg"
+          alt="lock-icon"
+          width={75}
+          height={75}
+          className="bg-[#FF5757] rounded-full p-2 mr-5"
+        />
+        <div>
+          <p className="font-semibold text-xl mb-2">Data Integrity</p>
+          <p className="text-sm">
+            Once data is recorded on the blockchain, it cannot be changed or
+            deleted
+          </p>
+        </div>
+      </div>
+      <div className="w-full text-white flex items-center bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
         <Image
           src="/icons/timbangan.svg"
           alt="lock-icon"
@@ -57,6 +74,67 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
+      <div className="w-full text-[white] flex items-center bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+        <Image
+          src="/icons/traceability.svg"
+          alt="lock-icon"
+          width={75}
+          height={75}
+          className="bg-[white] rounded-full p-2 mr-5"
+        />
+        <div>
+          <p className="font-semibold text-xl mb-2">Traceability</p>
+          <p className="text-sm">
+            Every transaction can be traced, ensuring accountability.
+          </p>
+        </div>
+      </div>
+      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+        <Image
+          src="/icons/trust.svg"
+          alt="lock-icon"
+          width={75}
+          height={75}
+          className="bg-[#FF5757] rounded-full p-2 mr-5"
+        />
+        <div>
+          <p className="font-semibold text-xl mb-2">Trust</p>
+          <p className="text-sm">
+            Blockchain provides a trusted environment for data sharing and
+            storage.
+          </p>
+        </div>
+      </div>
+      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+        <Image
+          src="/icons/access.svg"
+          alt="lock-icon"
+          width={75}
+          height={75}
+          className="bg-[#FF5757] rounded-full p-2 mr-5"
+        />
+        <div>
+          <p className="font-semibold text-xl mb-2">Accessibility</p>
+          <p className="text-sm">
+            Data can be accessed from anywhere even if you are abroad.
+          </p>
+        </div>
+      </div>
+      <div className="w-full text-white flex items-center bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+        <Image
+          src="/icons/access-control.svg"
+          alt="lock-icon"
+          width={75}
+          height={75}
+          className="bg-[white] rounded-full p-2 mr-5"
+        />
+        <div>
+          <p className="font-semibold text-xl mb-2">Patient Control</p>
+          <p className="text-sm">
+            Patients have full control over their medical records.
+          </p>
+        </div>
+      </div>
     </div>
-  )
+  );
 }

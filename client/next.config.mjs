@@ -7,6 +7,7 @@ const nextConfig = {
         AUTH_SECRET: process.env.AUTH_SECRET,
         ADMIN_ID: process.env.ADMIN_ID,
         PROJECT_ID: process.env.PROJECT_ID,
+        GEMINI_API: process.env.GEMINI_API,
     }
 };
 

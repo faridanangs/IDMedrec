@@ -48,8 +48,11 @@ export default function Navbar() {
           <li className="mr-7 xl:mr-10">
             <Link href="#features">Features</Link>
           </li>
-          <li>
+          <li className="mr-7 xl:mr-10">
             <Link href="#aboutus">About Us</Link>
+          </li>
+          <li>
+            <Link href="https://github.com/faridanangs/IDMedrec/tree/main/blockchain">Docs</Link>
           </li>
         </ul>
         <div className="hidden md:flex">
@@ -77,8 +80,13 @@ export default function Navbar() {
               <li className="mb-2">
                 <Link href="#features">Features</Link>
               </li>
-              <li className="mb-4">
+              <li className="mb-2">
                 <Link href="#aboutus">About Us</Link>
+              </li>
+              <li className="mb-4">
+                <Link href="https://github.com/faridanangs/IDMedrec/tree/main/blockchain">
+                  Docs
+                </Link>
               </li>
               <li className="mb-2">
                 <Button variant="outline" asChild className="w-full">

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import AboutDoctor from "@/components/molecules/about_doctor";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DataTable } from "@/components/ui/data-table";
@@ -11,13 +11,17 @@ import { sessionAuth } from "@/context/auth.server";
 import { getMedicalRecords } from "@/context/contract";
 import { getPatientRecordFromIPFS } from "@/context/action";
 import { toast } from "react-toastify";
-
+import { usePathname, useSearchParams } from "next/navigation";
+import Asking from "@/components/molecules/chat_room";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function DashboardDoctor() {
   const [medicalRecordDatas, setMedicalRecordDatas] = useState([]);
   const formRef = useRef(null);
-
   const [doctor, setDoctor] = useState();
+  const searchParams = useSearchParams();
+  const pathName = usePathname();
 
   const handleSessions = async () => {
     const { user } = await sessionAuth();
@@ -51,43 +55,59 @@ export default function DashboardDoctor() {
   };
 
   return (
-    <div>
-      <h1 className="font-semibold text-3xl mb-6">Dashboard Doctor</h1>
-      <Tabs defaultValue="medical_record_form" className="w-full mb-12">
-        <TabsList className="px-3 py-6 mb-4">
-          <TabsTrigger value="medical_record_form" className="sm:px-10 py-2">
-            Medical Record Form
-          </TabsTrigger>
-          <TabsTrigger value="about_doctor" className="sm:px-10 py-2">
-            About Doctor
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="medical_record_form">
-          <MedicalRecordForm doctor={doctor} />
-        </TabsContent>
-        <TabsContent value="about_doctor">
-          <AboutDoctor doctor={doctor} />
-        </TabsContent>
-      </Tabs>
-      <h1 className="font-semibold text-2xl mb-4">Patient medical record</h1>
-      <form onSubmit={handleSubmit} ref={formRef}>
-        <div className="flex">
-          <Input
-            name="wallet_address"
-            type="text"
-            className="md:w-[385px] mr-2"
-            placeholder="enter the address user"
-          />
-          <Input
-            name="id"
-            type="number"
-            className="w-[100px] sm:w-[150px] mr-4"
-            placeholder="id"
-          />
-          <Button>Search</Button>
-        </div>
-      </form>
-      <DataTable columns={PatientColumns2} data={medicalRecordDatas} />
+    <div className=" max-w-7xl mx-auto w-full">
+      {searchParams.get("chat") ? (
+        <>
+          <Link href={pathName} className="mb-4 inline-block">
+            <Image src="/icons/arrow.png" width={25} height={25} alt="arrow" />
+          </Link>
+          <Asking />
+        </>
+      ) : (
+        <>
+          <h1 className="font-semibold text-3xl mb-6">Dashboard Doctor</h1>
+          <Tabs defaultValue="medical_record_form" className="w-full mb-12">
+            <TabsList className="px-3 py-6 mb-4">
+              <TabsTrigger
+                value="medical_record_form"
+                className="sm:px-10 py-2"
+              >
+                Medical Record Form
+              </TabsTrigger>
+              <TabsTrigger value="about_doctor" className="sm:px-10 py-2">
+                About Doctor
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="medical_record_form">
+              <MedicalRecordForm doctor={doctor} />
+            </TabsContent>
+            <TabsContent value="about_doctor">
+              <AboutDoctor doctor={doctor} />
+            </TabsContent>
+          </Tabs>
+          <h1 className="font-semibold text-2xl mb-4">
+            Patient medical record
+          </h1>
+          <form onSubmit={handleSubmit} ref={formRef}>
+            <div className="flex">
+              <Input
+                name="wallet_address"
+                type="text"
+                className="md:w-[385px] mr-2"
+                placeholder="enter the address user"
+              />
+              <Input
+                name="id"
+                type="number"
+                className="w-[100px] sm:w-[150px] mr-4"
+                placeholder="id"
+              />
+              <Button>Search</Button>
+            </div>
+          </form>
+          <DataTable columns={PatientColumns2} data={medicalRecordDatas} />
+        </>
+      )}
     </div>
   );
 }

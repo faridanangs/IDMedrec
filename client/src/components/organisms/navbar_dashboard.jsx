@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,18 +14,7 @@ import { logout, sessionAuth } from "@/context/auth.server";
 import { useEffect, useState } from "react";
 
 export default function NavbarDashboard() {
-  const pathname = usePathname();
-
-  const [user, setUser] = useState();
-
-  const handleSessions = async () => {
-    const { user } = await sessionAuth();
-    setUser(user);
-  };
-
-  useEffect(() => {
-    handleSessions();
-  }, []);
+  const pathName = usePathname();
 
   return (
     <nav
@@ -33,11 +22,12 @@ export default function NavbarDashboard() {
         "flex items-center justify-between",
         "px-5 lg:px-10 2xl:px-16 py-[14px]",
         "shadow",
-        "bg-white sticky top-0 z-40"
+        "bg-white sticky top-0 z-40",
+        "max-w-7xl mx-auto w-full"
       )}
     >
       <aside className="flex items-center">
-        <Link href="/dashboard">
+        <Link href="/">
           <Image
             src="/images/logo-real.png"
             width={125}
@@ -48,6 +38,7 @@ export default function NavbarDashboard() {
         </Link>
       </aside>
       <div className="gap-8 items-center hidden sm:flex">
+        <Link href={`${pathName}?chat=true`} className="shadow-xl px-2 py-1 rounded-md hover:scale-105 duration-150 transition-all">Chat Room</Link>
         <ConnectButton />
         <LogoutButton />
       </div>

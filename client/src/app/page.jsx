@@ -54,18 +54,6 @@ export default function Home() {
           </aside>
         </div>
       </div>
-      <div className="text-center mb-16 px-6 md:px-0">
-        <p className="font-semibold text-[28px] mb-5">
-          What is <span className="text-[#FF5757]">IDMedrec?</span>
-        </p>
-        <p className="mx-auto md:w-[740px] md:text-lg text-[#475569]">
-          IDMedrec is a web-based system that functions to manage medical
-          records at hospitals or health centers. This system was created with
-          modern technology, namely blockchain. This technology can store
-          medical record data very safely, this is because the data will be
-          stored via a smart contract.
-        </p>
-      </div>
       <div
         className="bg-[#0F172A] advantages_clip pt-40 pb-60 mb-14"
         id="advantages"
@@ -73,7 +61,7 @@ export default function Home() {
         <p className="font-semibold text-[28px] mb-4 text-white text-center">
           Our Platform <span className="text-[#FF5757]">Advantages</span>
         </p>
-        <p className="text-white text-center sm:w-[400px] mx-auto mb-20 sm:px-0 px-4">
+        <p className="text-white text-center sm:w-[400px] mx-auto mb-10 sm:px-0 px-4">
           IDMedrec is the first medical record system to utilize blockchain
           technology to store data
         </p>
