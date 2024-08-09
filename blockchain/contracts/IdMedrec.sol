@@ -51,7 +51,7 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
 
     /**
     @dev This function is used to create a medical record
-    - Arguments: address, striing, uint256
+    - Arguments: address, striing, uint256, address, uint256
     */
     function createMedicalRecord(
         address _patient,
@@ -113,7 +113,7 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
 
     /**
     @dev This function is used to create a patient account
-    - Arguments: address, striing, uint256
+    - Arguments: address, string, uint256
     */
     function addPatient(
         address _patientAddress,
