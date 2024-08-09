@@ -1,13 +1,161 @@
-# Sample Hardhat Project
+# IDMedRec Smart Contract Documentation
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+## Overview
 
-Try running some of the following tasks:
+The `IDMedRec` smart contract allows for managing and retrieving medical records, doctors, and patient information on the blockchain. This documentation will guide you through creating the necessary structures, interfaces, and smart contract code to interact with the `IDMedRec` smart contract deployed at address `0x2D9FDe1edfcF5Ab0977D7095B6A6a61Fb41E62C3`.
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
+## Structs
+
+### SharedStructs.sol
+
+This file defines the data structures used in the smart contract.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+contract SharedStructs {
+    /// @notice Represents a medical record in the system
+    struct MedicalRecord {
+        string uri;
+        uint256 id;
+    }
+
+    /// @notice Represents a doctor in the system
+    struct DoctorStruct {
+        address doctor;
+        string uri;
+        uint256 id;
+    }
+
+    /// @notice Represents a patient in the system
+    struct PatientStruct {
+        address patient;
+        string uri;
+        uint256 id;
+    }
+}
 ```
+
+## Interface
+
+### MCI.sol
+
+This interface defines the functions available for interacting with the IDMedRec smart contract.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import "./SharedStructs.sol";
+
+/// @notice This interface defines the standard functions and events for managing medical records, doctors, and patients on the blockchain.
+interface MCI {
+    /// @notice Retrieves the medical records associated with a patient
+    /// @param _patient The address of the patient
+    /// @param _patientId The unique ID of the patient
+    /// @return An array of MedicalRecord structs
+    function getMedicalRecords(
+        address _patient,
+        uint256 _patientId
+    ) external view returns (SharedStructs.MedicalRecord[] memory);
+
+    /// @notice Retrieves the information of a doctor
+    /// @param _doctorAddress The address of the doctor
+    /// @param _doctorId The unique ID of the doctor
+    /// @return A DoctorStruct containing the doctor's information
+    function getDoctor(
+        address _doctorAddress,
+        uint256 _doctorId
+    ) external view returns (SharedStructs.DoctorStruct memory);
+
+    /// @notice Retrieves the information of a patient
+    /// @param _patientAddress The address of the patient
+    /// @param _patientId The unique ID of the patient
+    /// @return A PatientStruct containing the patient's information
+    function getPatient(
+        address _patientAddress,
+        uint256 _patientId
+    ) external view returns (SharedStructs.PatientStruct memory);
+
+    /// @notice Retrieves the address of the contract owner
+    /// @return The address of the contract owner
+    function getOwner() external view returns (address);
+
+    /// @notice Retrieves the total number of doctors in the system
+    /// @return The total number of doctors
+    function getDoctorAmount() external view returns (uint256);
+
+    /// @notice Retrieves the total number of patients in the system
+    /// @return The total number of patients
+    function getPatientAmount() external view returns (uint256);
+}
+```
+
+## Example Smart Contract
+
+### MCC.sol
+
+This contract demonstrates how to use the MCI interface to access data from the IDMedRec smart contract.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import "./MCI.sol";
+import "./SharedStructs.sol";
+
+contract MCC {
+    address constant IDMEDREC_ADDRESS = 0x2D9FDe1edfcF5Ab0977D7095B6A6a61Fb41E62C3;
+
+    MCI private mci = MCI(IDMEDREC_ADDRESS);
+
+    /// @notice Retrieves the address of the contract owner
+    /// @return The address of the contract owner
+    function getOwner() external view returns (address) {
+        return mci.getOwner();
+    }
+
+    /// @notice Retrieves the medical records associated with a patient
+    /// @param _patient The address of the patient
+    /// @param _patientId The unique ID of the patient
+    /// @return An array of MedicalRecord structs
+    function getMedicalRecords(address _patient, uint256 _patientId)
+        public
+        view
+        returns (SharedStructs.MedicalRecord[] memory)
+    {
+        return mci.getMedicalRecords(_patient, _patientId);
+    }
+
+    /// @notice Retrieves the information of a patient
+    /// @param _patientAddress The address of the patient
+    /// @param _patientId The unique ID of the patient
+    /// @return A PatientStruct containing the patient's information
+    function getPatient(address _patientAddress, uint256 _patientId)
+        external
+        view
+        returns (SharedStructs.PatientStruct memory)
+    {
+        return mci.getPatient(_patientAddress, _patientId);
+    }
+
+    /// @notice Retrieves the information of a doctor
+    /// @param _doctorAddress The address of the doctor
+    /// @param _doctorId The unique ID of the doctor
+    /// @return A DoctorStruct containing the doctor's information
+    function getDoctor(address _doctorAddress, uint256 _doctorId)
+        external
+        view
+        returns (SharedStructs.DoctorStruct memory)
+    {
+        return mci.getDoctor(_doctorAddress, _doctorId);
+    }
+}
+```
+## Deployment
+
+- **Current Network:** Polygon Amoy
+- **Production Network:** Polygon
+
+Deploy and test on the Polygon Amoy network first to ensure functionality before deploying to the Polygon network to reduce costs.

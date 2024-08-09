@@ -18,13 +18,13 @@ contract IDMedRec is ReentrancyGuard, ERC20 {
     Counters.Counter private counterId;
 
     // Event
-    event DoctorAdded(address doctorAddress_, uint256 doctorId_);
-    event PatientAdded(address patientAddress_, uint256 patientId_);
+    event DoctorAdded(address doctorAddress_, uint256 indexed doctorId_);
+    event PatientAdded(address patientAddress_, uint256 indexed patientId_);
     event MedicalRecordAdded(
         address patientAddress_,
-        uint256 patientId_,
+        uint256 indexed patientId_,
         address doctorAddress_,
-        uint256 doctorId_
+        uint256 indexed doctorId_
     );
 
     // Struct
