@@ -103,7 +103,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="flex items-center justify-center lg:flex-row flex-col-reverse">
+        <div className="flex items-center justify-center lg:flex-row flex-col-reverse mb-32">
           <div className="sm:px-0 px-6">
             <p className="font-semibold text-3xl sm:w-[450px] text-[#0F172A] mb-4">
               Creation and Storage of Medical Records on{" "}

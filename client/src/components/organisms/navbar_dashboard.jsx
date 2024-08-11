@@ -60,7 +60,7 @@ export default function NavbarDashboard() {
               <Link href="/dashboard/patient">Patient</Link>
             </li>
             <li>
-              <div className=" sm:hidden mt-8">
+              <div className="sm:hidden mt-8">
                 <ConnectButton />
                 <LogoutButton />
               </div>
