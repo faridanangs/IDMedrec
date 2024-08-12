@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,8 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ConnectButton } from "./connect_button";
-import { logout, sessionAuth } from "@/context/auth.server";
-import { useEffect, useState } from "react";
+import { logout } from "@/context/auth.server";
 
 export default function NavbarDashboard() {
   const pathName = usePathname();
@@ -38,7 +37,12 @@ export default function NavbarDashboard() {
         </Link>
       </aside>
       <div className="gap-8 items-center hidden sm:flex">
-        <Link href={`${pathName}?chat=true`} className="shadow-xl px-2 py-1 rounded-md hover:scale-105 duration-150 transition-all">Chat Room</Link>
+        <Link
+          href={`${pathName}?chat=true`}
+          className="shadow-xl px-2 py-1 rounded-md hover:scale-105 duration-150 transition-all"
+        >
+          Chat Room
+        </Link>
         <ConnectButton />
         <LogoutButton />
       </div>
@@ -50,18 +54,11 @@ export default function NavbarDashboard() {
         </PopoverTrigger>
         <PopoverContent className="w-72 sm:hidden">
           <ul className="text-sm">
-            <li className="mb-3">
-              <Link href="/dashboard">Admin</Link>
-            </li>
-            <li className="mb-3">
-              <Link href="/dashboard/doctor">Doctor</Link>
-            </li>
-            <li className="mb-3">
-              <Link href="/dashboard/patient">Patient</Link>
-            </li>
             <li>
-              <div className="sm:hidden mt-8">
-                <ConnectButton />
+              <div className="sm:hidden my-2">
+                <div className="my-2">
+                  <ConnectButton />
+                </div>
                 <LogoutButton />
               </div>
             </li>

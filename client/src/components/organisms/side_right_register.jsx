@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -7,10 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { addPatientAction } from "@/context/action";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import { useAccount } from "wagmi";
 import { ConnectButton } from "./connect_button";
-import { formatEthErrorMsg } from "@/context/errorHandler";
 
 export default function SideRightRegister() {
   const formRef = useRef(null);

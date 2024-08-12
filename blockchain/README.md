@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `IDMedRec` smart contract allows for managing and retrieving medical records, doctors, and patient information on the blockchain. This documentation will guide you through creating the necessary structures, interfaces, and smart contract code to interact with the `IDMedRec` smart contract deployed at address `0x2D9FDe1edfcF5Ab0977D7095B6A6a61Fb41E62C3`.
+The `IDMedRec` smart contract allows for managing and retrieving medical records, doctors, and patient information on the blockchain. This documentation will guide you through creating the necessary structures, interfaces, and smart contract code to interact with the `IDMedRec` smart contract.
 
 ## Structs
 

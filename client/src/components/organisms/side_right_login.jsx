@@ -5,15 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ConnectButton } from "./connect_button";
 import { getUserInfoFromIPFS } from "@/context/action";
 import { getDoctor, getOwner, getPatient } from "@/context/contract";
 import { toast } from "react-toastify";
-import { logIn, sessionAuth } from "@/context/auth.server";
+import { logIn } from "@/context/auth.server";
 import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
-import { Spinnaker } from "next/font/google";
 import { Spinner } from "@nextui-org/react";
 
 export default function SideRightLogin() {
