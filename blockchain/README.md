@@ -159,5 +159,6 @@ contract MCC {
 ## Deployment
 
 - **Current Network:** Polygon Amoy
+- [Polygon Faucet](https://faucet.polygon.technology)
 
 Deploy and test on the Polygon Amoy network first to ensure functionality before deploying to the Polygon network to reduce costs.
