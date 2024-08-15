@@ -101,7 +101,7 @@ interface MCI {
 
 ### MCC.sol
 
-This contract demonstrates how to use the MCI interface to access data from the IDMedRec smart contract and Structs at MCI.sol Must same in MCC.sol, if you want to interact with other smart contracts, you must have the contract address.
+This contract demonstrates how to use the MCI interface and contract address to access data from the IDMedRec smart contract. The structs in MCI.sol must be identical to those in MCC.sol.
 
 **Contract Address IdMedrec:**
 ```Contract Address
