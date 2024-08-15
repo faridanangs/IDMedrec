@@ -44,7 +44,7 @@ contract SharedStructs {
 
 ### MCI.sol
 
-This interface defines the functions available for interacting with the IDMedRec smart contract or others smartcontract.
+This interface defines the functions available for interacting with the IDMedRec smart contract.
 
 ```solidity
 // SPDX-License-Identifier: MIT
