@@ -44,8 +44,8 @@ contract SharedStructs {
 
 ### MCI.sol
 In Solidity, an interface is an abstract contract that only declares functions without implementing them. Interfaces are used to define the rules for how other contracts can interact with the contract that implements the interface.
-For example, in the MCI.sol file, this interface defines the functions available for interacting with the IDMedRec smart contract. By using the interface, other contracts can call the functions within IDMedRec without needing to know the details of its implementation. This facilitates secure and structured communication between smart contracts on the Ethereum (EVM) network.
 
+For example, in the MCI.sol file, this interface defines the functions available for interacting with the IDMedRec smart contract. By using this interface, other contracts can call the functions within IDMedRec without needing to know the details of its implementation. This facilitates secure and structured communication between smart contracts on the Ethereum (EVM) network.
 
 This interface defines the functions available for interacting with the IDMedRec smart contract.
 ```solidity
@@ -101,8 +101,12 @@ interface MCI {
 
 ### MCC.sol
 
-This contract demonstrates how to use the MCI interface to access data from the IDMedRec smart contract and Structs at MCI.sol Must same in MCC.sol.
+This contract demonstrates how to use the MCI interface and contract address to access data from the IDMedRec smart contract. The structs in MCI.sol must be identical to those in MCC.sol.
 
+**Contract Address IdMedrec:**
+```Contract Address
+0x2D9FDe1edfcF5Ab0977D7095B6A6a61Fb41E62C3
+```
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
@@ -161,16 +165,17 @@ contract MCC {
 ## Deployment
 - **Current Network:** Polygon Amoy
 - [Polygon Faucet](https://faucet.polygon.technology)
-  
-#### After accessing Remix IDE, connect your wallet using MetaMask and select the Polygon Amoy network.
 
+### 1. Get into Remix IDE.
+### 2. After accessing Remix IDE, connect your wallet using MetaMask and select the Polygon Amoy network.
 ![Polygon Amoy](https://github.com/faridanangs/IDMedrec/blob/main/blockchain/assets/Screenshot%202024-08-15%20192012.png)
 
-#### Next, choose **Deploy and Run Transactions**. In the deployment settings, click on **Environment** and select **Injected Provider - MetaMask**.
-
+### 3. Next, choose **Deploy and Run Transactions**. In the deployment settings, click on **Environment** and select **Injected Provider - MetaMask**.
 ![Metamask](https://github.com/faridanangs/IDMedrec/blob/main/blockchain/assets/Screenshot%202024-08-15%20191939.png)
 
-##### You can use this account to testing
+### 4. Deploy MCC.sol
+
+#### You can use this account to testing
 1. **Doctor**:
     - Address: 0x1a5Bb892D13753cB89c06115e2033A5F874ad66b
     - ID: 16513645808439724
