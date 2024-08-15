@@ -44,7 +44,7 @@ contract SharedStructs {
 
 ### MCI.sol
 
-This interface defines the functions available for interacting with the IDMedRec smart contract.
+This interface defines the functions available for interacting with the IDMedRec smart contract or others smartcontract.
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -99,7 +99,7 @@ interface MCI {
 
 ### MCC.sol
 
-This contract demonstrates how to use the MCI interface to access data from the IDMedRec smart contract.
+This contract demonstrates how to use the MCI interface to access data from the IDMedRec smart contract and Structs at MCI.sol Must same in MCC.sol.
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -160,5 +160,3 @@ contract MCC {
 
 - **Current Network:** Polygon Amoy
 - [Polygon Faucet](https://faucet.polygon.technology)
-
-Deploy and test on the Polygon Amoy network first to ensure functionality before deploying to the Polygon network to reduce costs.
