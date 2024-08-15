@@ -1,15 +1,25 @@
 "use client";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect, useSwitchChain } from "wagmi";
 import metamaskBefore from "@/../../public/icons/metamask-before-conn.svg";
 import metamaskAfter from "@/../../public/icons/metamask.svg";
 import polygonAmoy from "@/../../public/icons/polygon1.svg";
 import { metaMask } from "wagmi/connectors";
 import Image from "next/image";
+import { useEffect } from "react";
 
 export const ConnectButton = () => {
-  const { address } = useAccount();
+  const { address, chainId } = useAccount();
   const { connect } = useConnect();
   const { disconnect } = useDisconnect();
+  const { switchChain } = useSwitchChain();
+
+  useEffect(() => {
+    if (chainId !== 80002) {
+      switchChain({
+        chainId: 80002,
+      });
+    }
+  }, [chainId]);
 
   return (
     <div>
