@@ -173,6 +173,8 @@ contract MCC {
 ### 3. Next, choose **Deploy and Run Transactions**. In the deployment settings, click on **Environment** and select **Injected Provider - MetaMask**.
 ![Metamask](https://github.com/faridanangs/IDMedrec/blob/main/blockchain/assets/Screenshot%202024-08-15%20191939.png)
 
+### 4. Deploy MCC.sol
+
 #### You can use this account to testing
 1. **Doctor**:
     - Address: 0x1a5Bb892D13753cB89c06115e2033A5F874ad66b
