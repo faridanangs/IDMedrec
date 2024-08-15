@@ -43,9 +43,11 @@ contract SharedStructs {
 ## Interface
 
 ### MCI.sol
+In Solidity, an interface is an abstract contract that only declares functions without implementing them. Interfaces are used to define the rules for how other contracts can interact with the contract that implements the interface.
+For example, in the MCI.sol file, this interface defines the functions available for interacting with the IDMedRec smart contract. By using the interface, other contracts can call the functions within IDMedRec without needing to know the details of its implementation. This facilitates secure and structured communication between smart contracts on the Ethereum (EVM) network.
+
 
 This interface defines the functions available for interacting with the IDMedRec smart contract.
-
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
@@ -99,7 +101,7 @@ interface MCI {
 
 ### MCC.sol
 
-This contract demonstrates how to use the MCI interface to access data from the IDMedRec smart contract.
+This contract demonstrates how to use the MCI interface to access data from the IDMedRec smart contract and Structs at MCI.sol Must same in MCC.sol.
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -157,7 +159,22 @@ contract MCC {
 }
 ```
 ## Deployment
-
 - **Current Network:** Polygon Amoy
+- [Polygon Faucet](https://faucet.polygon.technology)
+  
+#### After accessing Remix IDE, connect your wallet using MetaMask and select the Polygon Amoy network.
 
-Deploy and test on the Polygon Amoy network first to ensure functionality before deploying to the Polygon network to reduce costs.
+![Polygon Amoy](https://github.com/faridanangs/IDMedrec/blob/main/blockchain/assets/Screenshot%202024-08-15%20192012.png)
+
+#### Next, choose **Deploy and Run Transactions**. In the deployment settings, click on **Environment** and select **Injected Provider - MetaMask**.
+
+![Metamask](https://github.com/faridanangs/IDMedrec/blob/main/blockchain/assets/Screenshot%202024-08-15%20191939.png)
+
+##### You can use this account to testing
+1. **Doctor**:
+    - Address: 0x1a5Bb892D13753cB89c06115e2033A5F874ad66b
+    - ID: 16513645808439724
+1. **Patient**:
+    - Address: 0x5aA9CC140504fca7c8821b24b2EA0a59c110AE8C
+    - ID: 4778126818154238
+
