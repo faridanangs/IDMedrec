@@ -44,8 +44,10 @@ contract SharedStructs {
 
 ### MCI.sol
 In Solidity, an interface is an abstract contract that only declares functions without implementing them. Interfaces are used to define the rules for how other contracts can interact with the contract that implements the interface.
-For example, in the MCI.sol file, this interface defines the functions available for interacting with the IDMedRec smart contract. By using the interface, other contracts can call the functions within IDMedRec without needing to know the details of its implementation. This facilitates secure and structured communication between smart contracts on the Ethereum (EVM) network.
 
+For example, in the MCI.sol file, this interface defines the functions available for interacting with the IDMedRec smart contract. By using this interface, other contracts can call the functions within IDMedRec without needing to know the details of its implementation. This facilitates secure and structured communication between smart contracts on the Ethereum (EVM) network.
+
+If you want to interact with other smart contracts, you must have the contract address.
 
 This interface defines the functions available for interacting with the IDMedRec smart contract.
 ```solidity
@@ -102,7 +104,9 @@ interface MCI {
 ### MCC.sol
 
 This contract demonstrates how to use the MCI interface to access data from the IDMedRec smart contract and Structs at MCI.sol Must same in MCC.sol.
-
+```Contract Address
+0x2D9FDe1edfcF5Ab0977D7095B6A6a61Fb41E62C3
+```
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
