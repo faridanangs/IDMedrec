@@ -157,15 +157,22 @@ contract MCC {
 }
 ```
 ## Deployment
-
-After accessing Remix IDE, connect your wallet using MetaMask and select the Polygon Amoy network.
+- **Current Network:** Polygon Amoy
+- [Polygon Faucet](https://faucet.polygon.technology)
+  
+#### After accessing Remix IDE, connect your wallet using MetaMask and select the Polygon Amoy network.
 
 ![Polygon Amoy](https://github.com/faridanangs/IDMedrec/blob/main/blockchain/assets/Screenshot%202024-08-15%20192012.png)
 
-Next, choose **Deploy and Run Transactions**. In the deployment settings, click on **Environment** and select **Injected Provider - MetaMask**.
+#### Next, choose **Deploy and Run Transactions**. In the deployment settings, click on **Environment** and select **Injected Provider - MetaMask**.
 
 ![Metamask](https://github.com/faridanangs/IDMedrec/blob/main/blockchain/assets/Screenshot%202024-08-15%20191939.png)
 
-- **Current Network:** Polygon Amoy
-- [Polygon Faucet](https://faucet.polygon.technology)
+##### You can use this account to testing
+1. **Doctor**:
+    - Address: 0x1a5Bb892D13753cB89c06115e2033A5F874ad66b
+    - ID: 16513645808439724
+1. **Patient**:
+    - Address: 0x5aA9CC140504fca7c8821b24b2EA0a59c110AE8C
+    - ID: 4778126818154238
 
