@@ -3,16 +3,16 @@ import Image from "next/image";
 export default function AdvantageCards() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 px-8 gap-4 md:gap-6 max-w-5xl w-full mx-auto">
-      <div className="w-full text-white flex items-center bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+      <div className="w-full text-white flex b-2 items-center bg-[#FF5757] px-6 py-8 flex-col gap-2 rounded-2xl hover:scale-95 duration-300 xl:mt-0 lg:flex-row">
         <Image
           src="/icons/lock.svg"
           alt="lock-icon"
           width={75}
           height={75}
-          className="bg-white rounded-full p-2 mr-5"
+          className="bg-white rounded-full p-2 mr-5 mb-2"
         />
         <div>
-          <p className="font-semibold text-xl mb-2">
+          <p className="font-semibold text-xl">
             High Data Security and Privacy
           </p>
           <p className="text-sm">
@@ -22,13 +22,13 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 flex-col gap-2 rounded-2xl hover:scale-95 duration-300 xl:mt-0 lg:flex-row">
         <Image
           src="/icons/money.svg"
           alt="lock-icon"
           width={75}
           height={75}
-          className="bg-[#FF5757] rounded-full p-2 mr-5"
+          className="bg-[#FF5757] rounded-full p-2 mr-5 mb-2"
         />
         <div>
           <p className="font-semibold text-xl mb-2">
@@ -40,13 +40,13 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 flex-col gap-2 rounded-2xl hover:scale-95 duration-300 xl:mt-0 lg:flex-row">
         <Image
           src="/icons/integration.svg"
           alt="lock-icon"
           width={75}
           height={75}
-          className="bg-[#FF5757] rounded-full p-2 mr-5"
+          className="bg-[#FF5757] rounded-full p-2 mr-5 mb-2"
         />
         <div>
           <p className="font-semibold text-xl mb-2">Data Integrity</p>
@@ -56,7 +56,7 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full text-white flex items-center bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+      <div className="w-full text-white flex items-center bg-[#FF5757] px-6 py-8 flex-col gap-2 rounded-2xl hover:scale-95 duration-300 xl:mt-0 lg:flex-row">
         <Image
           src="/icons/timbangan.svg"
           alt="lock-icon"
@@ -74,7 +74,7 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full text-[white] flex items-center bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+      <div className="w-full text-[white] flex items-center bg-[#FF5757] px-6 py-8 flex-col gap-2 rounded-2xl hover:scale-95 duration-300 xl:mt-0 lg:flex-row">
         <Image
           src="/icons/traceability.svg"
           alt="lock-icon"
@@ -89,13 +89,13 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 flex-col gap-2 rounded-2xl hover:scale-95 duration-300 xl:mt-0 lg:flex-row">
         <Image
           src="/icons/trust.svg"
           alt="lock-icon"
           width={75}
           height={75}
-          className="bg-[#FF5757] rounded-full p-2 mr-5"
+          className="bg-[#FF5757] rounded-full p-2 mr-5 mb-2"
         />
         <div>
           <p className="font-semibold text-xl mb-2">Trust</p>
@@ -105,13 +105,13 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+      <div className="w-full text-[#FF5757] flex items-center bg-white px-6 py-8 flex-col gap-2 rounded-2xl hover:scale-95 duration-300 xl:mt-0 lg:flex-row">
         <Image
           src="/icons/access.svg"
           alt="lock-icon"
           width={75}
           height={75}
-          className="bg-[#FF5757] rounded-full p-2 mr-5"
+          className="bg-[#FF5757] rounded-full p-2 mr-5 mb-2"
         />
         <div>
           <p className="font-semibold text-xl mb-2">Accessibility</p>
@@ -120,7 +120,7 @@ export default function AdvantageCards() {
           </p>
         </div>
       </div>
-      <div className="w-full text-white flex items-center bg-[#FF5757] px-6 py-8 rounded-2xl hover:scale-95 duration-300 xl:mt-0">
+      <div className="w-full text-white flex items-center bg-[#FF5757] px-6 py-8 flex-col gap-2 rounded-2xl hover:scale-95 duration-300 xl:mt-0 lg:flex-row">
         <Image
           src="/icons/access-control.svg"
           alt="lock-icon"

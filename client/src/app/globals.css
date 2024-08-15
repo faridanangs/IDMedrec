@@ -69,10 +69,15 @@
 }
 
 .advantages_clip {
-  clip-path: polygon(0 0, 100% 19%, 100% 100%, 0 80%);
+  clip-path: polygon(0 0, 100% 8%, 100% 100%, 0 93%);
 }
 @media screen and (max-width: 768px) {
   .advantages_clip {
     clip-path: polygon(0 0, 100% 8%, 100% 100%, 0 93%);
+  }
+}
+@media screen and (max-width: 640px) {
+  .advantages_clip {
+    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 93%);
   }
 }

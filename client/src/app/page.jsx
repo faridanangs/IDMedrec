@@ -58,7 +58,7 @@ export default function Home() {
         className="bg-[#0F172A] advantages_clip pt-40 pb-60 mb-14"
         id="advantages"
       >
-        <p className="font-semibold text-[28px] mb-4 text-white text-center">
+        <p className="font-semibold text-[28px] mb-4 text-white text-center mt-8 md:mt-2">
           Our Platform <span className="text-[#FF5757]">Advantages</span>
         </p>
         <p className="text-white text-center sm:w-[400px] mx-auto mb-10 sm:px-0 px-4">
@@ -123,7 +123,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="mb-36 px-6" id="aboutus">
+      <div className="mb-36" id="aboutus">
         <p className="font-semibold text-[28px] mb-4 text-[#0F172A] text-center">
           About <span className="text-[#FF5757]">Us</span>
         </p>
@@ -140,11 +140,11 @@ export default function Home() {
             width={420}
             height={300}
           />
-          <div className="lg:text-start">
+          <div className="text-start px-6">
             <p className="font-semibold text-[22px] text-[#0F172A]">
               Our <span className="text-[#FF5757]">Goal</span>
             </p>
-            <p className="text-[#475569] sm:px-0 px-6 sm:w-[530px] mx-auto mb-8">
+            <p className="text-[#475569] sm:w-[530px] mx-auto mb-8">
               Our goal is to empower individuals by giving them full control
               over their medical records. We ensure that health information is
               securely stored and accessed only with appropriate permissions.
@@ -152,7 +152,7 @@ export default function Home() {
             <p className="font-semibold text-[22px] text-[#0F172A]">
               Our <span className="text-[#FF5757]">Vision</span>
             </p>
-            <p className="text-[#475569] sm:px-0 px-6 sm:w-[530px] mx-auto mb-8">
+            <p className="text-[#475569] sm:w-[530px] mx-auto mb-8">
               Our vision is to create a future where everyone can easily access
               their medical records wherever they are, enhancing the
               effectiveness of healthcare services. We chose Polygon for its
