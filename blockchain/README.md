@@ -158,5 +158,14 @@ contract MCC {
 ```
 ## Deployment
 
+After accessing Remix IDE, connect your wallet using MetaMask and select the Polygon Amoy network.
+
+![Polygon Amoy](https://github.com/faridanangs/IDMedrec/blob/main/blockchain/assets/Screenshot%202024-08-15%20192012.png)
+
+Next, choose **Deploy and Run Transactions**. In the deployment settings, click on **Environment** and select **Injected Provider - MetaMask**.
+
+![Metamask](https://github.com/faridanangs/IDMedrec/blob/main/blockchain/assets/Screenshot%202024-08-15%20191939.png)
+
 - **Current Network:** Polygon Amoy
 - [Polygon Faucet](https://faucet.polygon.technology)
+
